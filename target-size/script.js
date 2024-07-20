@@ -89,13 +89,13 @@ function calculate() {
     targetSizeLabel.textContent = `${roundedCSSPixels}px`;
 
     const resultText = `
-        <strong>선택된 모델:</strong> ${modelName}<br>
-        <strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)<br>
-        <strong>화면 해상도:</strong> ${ppi} PPI<br>
-        <strong>디스플레이 배율:</strong> ${scaleFactor}x<br>
-        <strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀<br>
-        <strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀<br>
-        <strong>권장 CSS 픽셀 크기:</strong> ${roundedCSSPixels}px
+        <li><strong>선택된 모델:</strong> ${modelName}</li>
+        <li><strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)</li>
+        <li><strong>화면 해상도:</strong> ${ppi} PPI</li>
+        <li><strong>디스플레이 배율:</strong> ${scaleFactor}x</li>
+        <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
+        <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>
+        <li><strong>변환 CSS 픽셀 크기:</strong> ${roundedCSSPixels}px</li>
     `;
 
     document.getElementById('result').innerHTML = resultText;
