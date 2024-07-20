@@ -19,21 +19,71 @@ function detectDevice() {
             ppi = 460;
             scaleFactor = 3;
         } else {
-            detectedModel = "iPhone (기타 모델)";
+            detectedModel = "iPhone (other)";
             ppi = 326;
             scaleFactor = 2;
         }
+    } else if (/iPad/.test(userAgent)) {
+        if (/iPad13,([1-2])/.test(userAgent)) {
+            detectedModel = "iPad Pro 12.9-inch (5th gen)";
+            ppi = 264;
+            scaleFactor = 2;
+        } else if (/iPad13,([4-6])/.test(userAgent)) {
+            detectedModel = "iPad Pro 11-inch (3rd gen)";
+            ppi = 264;
+            scaleFactor = 2;
+        } else if (/iPad13,16/.test(userAgent)) {
+            detectedModel = "iPad Air (5th gen)";
+            ppi = 264;
+            scaleFactor = 2;
+        } else if (/iPad14,1/.test(userAgent)) {
+            detectedModel = "iPad mini (6th gen)";
+            ppi = 326;
+            scaleFactor = 2;
+        } else {
+            detectedModel = "iPad (other)";
+            ppi = 264;
+            scaleFactor = 2;
+        }
     } else if (/Android/.test(userAgent)) {
-        if (/SM-G998/.test(userAgent)) {
+        if (/SM-S908/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S22 Ultra";
+            ppi = 500;
+            scaleFactor = 4;
+        } else if (/SM-S901/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S22";
+            ppi = 422;
+            scaleFactor = 3;
+        } else if (/SM-G998/.test(userAgent)) {
             detectedModel = "Samsung Galaxy S21 Ultra";
             ppi = 515;
-            scaleFactor = 3.5;
-        } else if (/Pixel 6/.test(userAgent)) {
-            detectedModel = "Google Pixel 6";
+            scaleFactor = 3.75;
+        } else if (/SM-F916/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Z Fold2";
+            ppi = 373;
+            scaleFactor = 2;
+        } else if (/SM-F700/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Z Flip";
+            ppi = 425;
+            scaleFactor = 2.625;
+        } else if (/SM-T970/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Tab S7+";
+            ppi = 274;
+            scaleFactor = 2;
+        } else if (/SM-X906/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Tab S8 Ultra";
+            ppi = 266;
+            scaleFactor = 2;
+        } else if (/OnePlus/.test(userAgent)) {
+            detectedModel = "OnePlus (other)";
+            ppi = 403;
+            scaleFactor = 2.75;
+        } else if (/Pixel/.test(userAgent)) {
+            detectedModel = "Google Pixel (other)";
             ppi = 421;
             scaleFactor = 2.5;
         } else {
-            detectedModel = "Android (기타 모델)";
+            detectedModel = "Android (other)";
             ppi = 400;
             scaleFactor = 2.75;
         }
@@ -41,11 +91,10 @@ function detectDevice() {
         detectedModel = "PC/기타 기기";
     }
 
-    document.getElementById('deviceInfo').textContent = `감지된 기기: ${detectedModel}, 예상 PPI: ${ppi}, 디스플레이 배율: ${scaleFactor.toFixed(1)}`;
+    document.getElementById('deviceInfo').textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, 디스플레이 배율: ${scaleFactor.toFixed(1)}`;
     document.getElementById('ppi').value = ppi;
     document.getElementById('scaleFactor').value = scaleFactor.toFixed(1);
 
-    // 기기 모델 선택 옵션 업데이트
     const modelSelect = document.getElementById('deviceModel');
     for (let i = 0; i < modelSelect.options.length; i++) {
         if (modelSelect.options[i].text.includes(detectedModel)) {
@@ -54,7 +103,6 @@ function detectDevice() {
         }
     }
 }
-
 function updateDeviceInfo() {
     const deviceModel = document.getElementById('deviceModel');
     const [ppi, scaleFactor, modelName] = deviceModel.value.split(',');
@@ -91,7 +139,7 @@ function calculate() {
     const resultText = `
         <li><strong>선택된 모델:</strong> ${modelName}</li>
         <li><strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)</li>
-        <li><strong>화면 해상도:</strong> ${ppi} PPI</li>
+        <li><strong>화면 픽셀 밀도:</strong> ${ppi} PPI<br></li>
         <li><strong>디스플레이 배율:</strong> ${scaleFactor}x</li>
         <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
         <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>

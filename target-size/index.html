@@ -27,6 +27,13 @@
                 <option value="326,3,iPhone 11">iPhone 11</option>
                 <option value="326,2,iPhone 8/7/6s/6">iPhone 8/7/6s/6</option>
             </optgroup>
+            <optgroup label="iPad">
+                <option value="264,2,iPad Pro 12.9-inch (5th gen)">iPad Pro 12.9-inch (5th gen)</option>
+                <option value="264,2,iPad Pro 11-inch (3rd gen)">iPad Pro 11-inch (3rd gen)</option>
+                <option value="264,2,iPad Air (5th gen)">iPad Air (5th gen)</option>
+                <option value="326,2,iPad mini (6th gen)">iPad mini (6th gen)</option>
+                <option value="264,2,iPad (9th gen)">iPad (9th gen)</option>
+            </optgroup>
             <optgroup label="Samsung Galaxy">
                 <option value="500,4,Samsung Galaxy S22 Ultra">Samsung Galaxy S22 Ultra</option>
                 <option value="422,3,Samsung Galaxy S22">Samsung Galaxy S22</option>
@@ -44,6 +51,12 @@
                 <option value="496,3.5,Samsung Galaxy Note 20 Ultra">Samsung Galaxy Note 20 Ultra</option>
                 <option value="393,2.625,Samsung Galaxy Note 20">Samsung Galaxy Note 20</option>
             </optgroup>
+            <optgroup label="Samsung Galaxy Tab">
+                <option value="266,2,Samsung Galaxy Tab S8 Ultra">Samsung Galaxy Tab S8 Ultra</option>
+                <option value="274,2,Samsung Galaxy Tab S7+">Samsung Galaxy Tab S7+</option>
+                <option value="276,2,Samsung Galaxy Tab S6">Samsung Galaxy Tab S6</option>
+                <option value="287,1.5,Samsung Galaxy Tab A7">Samsung Galaxy Tab A7</option>
+            </optgroup>
             <optgroup label="Other Android">
                 <option value="403,2.75,OnePlus 9 Pro">OnePlus 9 Pro</option>
                 <option value="393,2.75,Xiaomi Mi 11">Xiaomi Mi 11</option>
@@ -54,7 +67,7 @@
         </select>
     </div>
     <div class="input-group">
-        <label for="ppi">화면 해상도 (PPI):</label>
+        <label for="ppi">화면 픽셀 밀도 (PPI):</label>
         <input type="number" id="ppi" min="1" step="1" value="460">
     </div>
     <div class="input-group">
@@ -69,7 +82,7 @@
         <span id="interaction-feedback"></span>
         <ul id="result"></ul>
     </div>
-    <div id="warning"></div>
+    <p id="warning"></p>
     <script src="script.js"></script>
 </body>
 </html>
