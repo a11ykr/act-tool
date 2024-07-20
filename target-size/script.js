@@ -186,14 +186,15 @@ function resetCalculator() {
     document.getElementById('result').innerHTML = '';
     document.getElementById('warning').innerHTML = '';
     const targetButton = document.getElementById('target-button');
-    targetButton.style.width = '50px';
-    targetButton.style.height = '50px';
+    targetButton.style.width = '32px';
+    targetButton.style.height = '32px';
     document.getElementById('target-size-label').textContent = '';
     document.getElementById('interaction-feedback').textContent = '';
     detectDevice();
 }
 
 window.onload = () => {
+    resetCalculator();
     detectDevice();
     updateDeviceInfo();
 };

@@ -27,20 +27,16 @@ button {
     margin-bottom: 10px;
 }
 button#calculateBtn {
-    border: 2px solid #e74c3c;
     background-color: #e74c3c;
 }
 button#calculateBtn:hover {
-    background-color: #FFF;
-    color: #c0392b;
+    background-color: #c0392b;
 }
 button#resetBtn {
-    border: 2px solid #2b3942;
-    background-color: #2b3942;
+    background-color: #3498db;
 }
 button#resetBtn:hover {
-    background-color: #FFF;
-    color: #2b2b2b;
+    background-color: #2980b9;
 }
 #result, #warning, #deviceInfo {
     margin-top: 20px;
@@ -55,17 +51,22 @@ button#resetBtn:hover {
 #output-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     margin-top: 20px;
 }
+#target-button-container {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 0 0 0 80px;
+}
 #target-button {
-    display: inline;
+    display: inline-block;
     background-color: #3498db;
     border: none;
-    cursor: pointer;
     transition: background-color 0.3s;
-    margin-bottom: 20px;
-    aspect-ratio: 1 / 1;
+    position: absolute;
+    top: 0;
+    left: 30px;
 }
 #target-button:hover {
     background-color: #2980b9;
@@ -78,7 +79,7 @@ button#resetBtn:hover {
     margin-bottom: 10px;
 }
 #interaction-feedback {
-    /* font-style: italic; */
+    font-style: italic;
     margin-bottom: 20px;
 }
 #result {
@@ -89,7 +90,7 @@ button#resetBtn:hover {
     body {
         padding: 10px;
     }
-    button:not(#target-button) {
+    button {
         width: 100%;
         margin-right: 0;
     }
