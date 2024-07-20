@@ -13,7 +13,7 @@ label {
     margin-bottom: 5px;
 }
 input[type="number"], select {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 5px;
     font-size: 16px;
 }
@@ -56,17 +56,26 @@ button#resetBtn:hover {
 }
 #target-button-container {
     position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* 이렇게 하면 항상 정사각형 형태를 유지합니다 */
     margin-bottom: 20px;
-    padding: 0 0 0 80px;
 }
+
 #target-button {
-    display: inline-block;
-    background-color: #3498db;
-    border: none;
-    transition: background-color 0.3s;
     position: absolute;
     top: 0;
     left: 30px;
+    width: 100%;
+    height: 100%;
+    background-color: #3498db;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
 }
 #target-button:hover {
     background-color: #2980b9;

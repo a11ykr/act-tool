@@ -129,9 +129,14 @@ function calculate() {
     const sideCSSPixels = sidePhysicalPixels / scaleFactor;
     const roundedCSSPixels = Math.round(sideCSSPixels);
 
+    const targetButtonContainer = document.getElementById('target-button-container');
     const targetButton = document.getElementById('target-button');
-    targetButton.style.width = `${roundedCSSPixels}px`;
-    targetButton.style.height = `${roundedCSSPixels}px`;
+    const containerWidth = targetButtonContainer.offsetWidth;
+    const buttonSize = Math.min(roundedCSSPixels, containerWidth);
+    
+    targetButtonContainer.style.paddingBottom = `${buttonSize}px`;
+    targetButton.style.width = `${buttonSize}px`;
+    targetButton.style.height = `${buttonSize}px`;
     
     const targetSizeLabel = document.getElementById('target-size-label');
     targetSizeLabel.textContent = `${roundedCSSPixels}px`;
