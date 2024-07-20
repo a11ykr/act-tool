@@ -1,17 +1,76 @@
+function detectDevice() {
+    const userAgent = navigator.userAgent;
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    let detectedModel = "알 수 없는 기기";
+    let ppi = 96; // PC 기본값
+    let scaleFactor = devicePixelRatio;
+
+    if (/iPhone/.test(userAgent)) {
+        if (/iPhone1[345]/.test(userAgent)) {
+            detectedModel = "iPhone 15 시리즈";
+            ppi = 460;
+            scaleFactor = 3;
+        } else if (/iPhone14,([34])/.test(userAgent)) {
+            detectedModel = "iPhone 14 Pro/Pro Max";
+            ppi = 460;
+            scaleFactor = 3;
+        } else if (/iPhone12,([5-8])/.test(userAgent)) {
+            detectedModel = "iPhone 13 Pro/Pro Max";
+            ppi = 460;
+            scaleFactor = 3;
+        } else {
+            detectedModel = "iPhone (기타 모델)";
+            ppi = 326;
+            scaleFactor = 2;
+        }
+    } else if (/Android/.test(userAgent)) {
+        if (/SM-G998/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S21 Ultra";
+            ppi = 515;
+            scaleFactor = 3.5;
+        } else if (/Pixel 6/.test(userAgent)) {
+            detectedModel = "Google Pixel 6";
+            ppi = 421;
+            scaleFactor = 2.5;
+        } else {
+            detectedModel = "Android (기타 모델)";
+            ppi = 400;
+            scaleFactor = 2.75;
+        }
+    } else {
+        detectedModel = "PC/기타 기기";
+    }
+
+    document.getElementById('deviceInfo').textContent = `감지된 기기: ${detectedModel}, 예상 PPI: ${ppi}, 디스플레이 배율: ${scaleFactor.toFixed(1)}`;
+    document.getElementById('ppi').value = ppi;
+    document.getElementById('scaleFactor').value = scaleFactor.toFixed(1);
+
+    // 기기 모델 선택 옵션 업데이트
+    const modelSelect = document.getElementById('deviceModel');
+    for (let i = 0; i < modelSelect.options.length; i++) {
+        if (modelSelect.options[i].text.includes(detectedModel)) {
+            modelSelect.selectedIndex = i;
+            break;
+        }
+    }
+}
+
 function updateDeviceInfo() {
-    const deviceSelect = document.getElementById('deviceSelect');
-    const [ppi, dpr] = deviceSelect.value.split(',');
-    if (ppi && dpr) {
+    const deviceModel = document.getElementById('deviceModel');
+    const [ppi, scaleFactor, modelName] = deviceModel.value.split(',');
+    if (ppi && scaleFactor) {
         document.getElementById('ppi').value = ppi;
-        document.getElementById('dpr').value = dpr;
+        document.getElementById('scaleFactor').value = scaleFactor;
     }
 }
 
 function calculate() {
     const diagonalMm = parseFloat(document.getElementById('diagonalLength').value);
     const ppi = parseFloat(document.getElementById('ppi').value);
-    const dpr = parseFloat(document.getElementById('dpr').value);
-    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0 || isNaN(dpr) || dpr <= 0) {
+    const scaleFactor = parseFloat(document.getElementById('scaleFactor').value);
+    const modelName = document.getElementById('deviceModel').options[document.getElementById('deviceModel').selectedIndex].text;
+
+    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0 || isNaN(scaleFactor) || scaleFactor <= 0) {
         alert('올바른 값을 입력해주세요.');
         return;
     }
@@ -19,19 +78,8 @@ function calculate() {
     const diagonalInches = diagonalMm / 25.4;
     const diagonalPhysicalPixels = diagonalInches * ppi;
     const sidePhysicalPixels = diagonalPhysicalPixels / Math.sqrt(2);
-    const sideCSSPixels = sidePhysicalPixels / dpr;
+    const sideCSSPixels = sidePhysicalPixels / scaleFactor;
     const roundedCSSPixels = Math.round(sideCSSPixels);
-
-    const resultText = `
-        타겟 대각선 길이: ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)<br>
-        화면 해상도: ${ppi} PPI<br>
-        디스플레이 배율: ${dpr}x<br>
-        타겟 한 변의 길이 (물리적 픽셀): ${sidePhysicalPixels.toFixed(2)} 픽셀<br>
-        타겟 한 변의 길이 (CSS 픽셀): ${sideCSSPixels.toFixed(2)} 픽셀<br>
-        권장 CSS 픽셀 크기: ${roundedCSSPixels}px
-    `;
-
-    document.getElementById('result').innerHTML = resultText;
 
     const targetButton = document.getElementById('target-button');
     targetButton.style.width = `${roundedCSSPixels}px`;
@@ -39,6 +87,18 @@ function calculate() {
     
     const targetSizeLabel = document.getElementById('target-size-label');
     targetSizeLabel.textContent = `${roundedCSSPixels}px`;
+
+    const resultText = `
+        <strong>선택된 모델:</strong> ${modelName}<br>
+        <strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)<br>
+        <strong>화면 해상도:</strong> ${ppi} PPI<br>
+        <strong>디스플레이 배율:</strong> ${scaleFactor}x<br>
+        <strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀<br>
+        <strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀<br>
+        <strong>권장 CSS 픽셀 크기:</strong> ${roundedCSSPixels}px
+    `;
+
+    document.getElementById('result').innerHTML = resultText;
 
     document.getElementById('warning').innerHTML = `
         주의: 실제 물리적 크기는 화면 설정과 기기에 따라 다를 수 있습니다.<br>
@@ -65,16 +125,16 @@ function setupButtonInteractions() {
     };
 
     targetButton.ontouchstart = (e) => {
-        e.preventDefault(); // 기본 동작 방지
+        e.preventDefault();
         feedbackSpan.textContent = "터치";
     };
 }
 
 function resetCalculator() {
     document.getElementById('diagonalLength').value = '6';
-    document.getElementById('deviceSelect').value = '';
+    document.getElementById('deviceModel').value = '';
     document.getElementById('ppi').value = '96';
-    document.getElementById('dpr').value = '1';
+    document.getElementById('scaleFactor').value = '1';
     document.getElementById('result').innerHTML = '';
     document.getElementById('warning').innerHTML = '';
     const targetButton = document.getElementById('target-button');
@@ -82,7 +142,10 @@ function resetCalculator() {
     targetButton.style.height = '50px';
     document.getElementById('target-size-label').textContent = '';
     document.getElementById('interaction-feedback').textContent = '';
+    detectDevice();
 }
 
-// 페이지 로드 시 기본값으로 계산 실행
-window.onload = calculate;
+window.onload = () => {
+    detectDevice();
+    updateDeviceInfo();
+};

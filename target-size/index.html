@@ -8,40 +8,68 @@
 </head>
 <body>
     <h1>타겟 크기 계산기</h1>
-    <p>이 계산기는 터치 타겟이나 UI 요소의 물리적 크기를 다양한 화면 해상도에서의 픽셀 크기로 변환하고, 실제 상호작용 가능한 버튼으로 표시합니다.</p>
+    <p>이 계산기는 터치 타겟이나 UI 요소의 물리적 크기를 다양한 기기에서의 픽셀 크기로 변환합니다.</p>
+    <div id="deviceInfo"></div>
     <div class="input-group">
         <label for="diagonalLength">타겟 대각선 길이 (mm):</label>
         <input type="number" id="diagonalLength" min="0.1" step="0.1" value="6">
     </div>
     <div class="input-group">
-        <label for="deviceSelect">디바이스 선택 (또는 직접 입력):</label>
-        <select id="deviceSelect" onchange="updateDeviceInfo()">
+        <label for="deviceModel">기기 모델 선택:</label>
+        <select id="deviceModel" onchange="updateDeviceInfo()">
             <option value="">직접 입력</option>
-            <option value="326,2">iPhone (Retina)</option>
-            <option value="458,3">iPhone 11 Pro</option>
-            <option value="460,3">iPhone 14 Pro</option>
-            <option value="264,2">iPad (Retina)</option>
-            <option value="288,3">Samsung Galaxy S21</option>
-            <option value="403,2.625">Google Pixel 5</option>
+            <optgroup label="iPhone">
+                <option value="460,3,iPhone 15 시리즈">iPhone 15 시리즈</option>
+                <option value="460,3,iPhone 14 Pro/Pro Max">iPhone 14 Pro/Pro Max</option>
+                <option value="460,3,iPhone 13 Pro/Pro Max">iPhone 13 Pro/Pro Max</option>
+                <option value="326,2,iPhone SE (2nd/3rd gen)">iPhone SE (2nd/3rd gen)</option>
+                <option value="401,3,iPhone 12 mini">iPhone 12 mini</option>
+                <option value="326,3,iPhone 11">iPhone 11</option>
+                <option value="326,2,iPhone 8/7/6s/6">iPhone 8/7/6s/6</option>
+            </optgroup>
+            <optgroup label="Samsung Galaxy">
+                <option value="500,4,Samsung Galaxy S22 Ultra">Samsung Galaxy S22 Ultra</option>
+                <option value="422,3,Samsung Galaxy S22">Samsung Galaxy S22</option>
+                <option value="393,3,Samsung Galaxy S22+">Samsung Galaxy S22+</option>
+                <option value="515,3.75,Samsung Galaxy S21 Ultra">Samsung Galaxy S21 Ultra</option>
+                <option value="421,3,Samsung Galaxy S21">Samsung Galaxy S21</option>
+                <option value="525,3.5,Samsung Galaxy S20 Ultra">Samsung Galaxy S20 Ultra</option>
+                <option value="563,4,Samsung Galaxy S20">Samsung Galaxy S20</option>
+                <option value="522,3.5,Samsung Galaxy S10+">Samsung Galaxy S10+</option>
+                <option value="550,4,Samsung Galaxy S10">Samsung Galaxy S10</option>
+                <option value="529,4,Samsung Galaxy S9+">Samsung Galaxy S9+</option>
+                <option value="570,4,Samsung Galaxy S9">Samsung Galaxy S9</option>
+                <option value="373,2,Samsung Galaxy Z Fold2">Samsung Galaxy Z Fold2</option>
+                <option value="425,2.625,Samsung Galaxy Z Flip">Samsung Galaxy Z Flip</option>
+                <option value="496,3.5,Samsung Galaxy Note 20 Ultra">Samsung Galaxy Note 20 Ultra</option>
+                <option value="393,2.625,Samsung Galaxy Note 20">Samsung Galaxy Note 20</option>
+            </optgroup>
+            <optgroup label="Other Android">
+                <option value="403,2.75,OnePlus 9 Pro">OnePlus 9 Pro</option>
+                <option value="393,2.75,Xiaomi Mi 11">Xiaomi Mi 11</option>
+                <option value="443,3.5,Sony Xperia 1 III">Sony Xperia 1 III</option>
+                <option value="387,2.75,Huawei P40 Pro">Huawei P40 Pro</option>
+                <option value="370,3,Motorola Edge+">Motorola Edge+</option>
+            </optgroup>
         </select>
     </div>
     <div class="input-group">
         <label for="ppi">화면 해상도 (PPI):</label>
-        <input type="number" id="ppi" min="1" step="1" value="96">
+        <input type="number" id="ppi" min="1" step="1" value="460">
     </div>
     <div class="input-group">
-        <label for="dpr">디스플레이 배율 (Device Pixel Ratio):</label>
-        <input type="number" id="dpr" min="1" step="0.1" value="1">
+        <label for="scaleFactor">디스플레이 배율:</label>
+        <input type="number" id="scaleFactor" min="1" step="0.1" value="3">
     </div>
-    <button onclick="calculate()">계산</button>
-    <button onclick="resetCalculator()">초기화</button>
-    <div id="result"></div>
-    <div id="warning"></div>
-    <div id="target-container">
+    <button id="calculateBtn" onclick="calculate()">계산</button>
+    <button id="resetBtn" onclick="resetCalculator()">초기화</button>
+    <div id="output-container">
         <button id="target-button"></button>
         <span id="target-size-label"></span>
         <span id="interaction-feedback"></span>
+        <div id="result"></div>
     </div>
+    <div id="warning"></div>
     <script src="script.js"></script>
 </body>
 </html>
