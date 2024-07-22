@@ -45,6 +45,32 @@ function detectDevice() {
             ppi = 264;
             scaleFactor = 2;
         }
+    } else if (/Pixel/.test(userAgent)) {
+        if (/Pixel 6 Pro/.test(userAgent)) {
+            detectedModel = "Google Pixel 6 Pro";
+            ppi = 441;
+            scaleFactor = 3;
+        } else if (/Pixel 6/.test(userAgent)) {
+            detectedModel = "Google Pixel 6";
+            ppi = 411;
+            scaleFactor = 2.625;
+        } else if (/Pixel 5/.test(userAgent)) {
+            detectedModel = "Google Pixel 5";
+            ppi = 432;
+            scaleFactor = 3;
+        } else if (/Pixel 4 XL/.test(userAgent)) {
+            detectedModel = "Google Pixel 4 XL";
+            ppi = 444;
+            scaleFactor = 2.75;
+        } else if (/Pixel 4/.test(userAgent)) {
+            detectedModel = "Google Pixel 4";
+            ppi = 444;
+            scaleFactor = 2.75;
+        } else {
+            detectedModel = "Google Pixel (기타 모델)";
+            ppi = 420;
+            scaleFactor = 2.75;
+        }
     } else if (/Android/.test(userAgent)) {
         if (/SM-S908/.test(userAgent)) {
             detectedModel = "Samsung Galaxy S22 Ultra";
@@ -133,8 +159,7 @@ function calculate() {
     const targetButton = document.getElementById('target-button');
     const containerWidth = targetButtonContainer.offsetWidth;
     const buttonSize = Math.min(roundedCSSPixels, containerWidth);
-    
-    targetButtonContainer.style.paddingBottom = `${buttonSize}px`;
+
     targetButton.style.width = `${buttonSize}px`;
     targetButton.style.height = `${buttonSize}px`;
     
