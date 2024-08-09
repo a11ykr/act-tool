@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>타겟 크기 계산기(Beta)</title>
+    <title>타겟 크기 계산기</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>타겟 크기 계산기(Beta)</h1>
+    <h1>타겟 크기 계산기</h1>
     <p>이 계산기는 터치 타겟이나 UI 요소의 물리적 크기를 다양한 기기에서의 픽셀 크기로 변환합니다.</p>
     <div id="deviceInfo"></div>
     <div class="input-group">
@@ -84,13 +84,35 @@
     <button id="calculateBtn" onclick="calculate()">계산</button>
     <button id="resetBtn" onclick="resetCalculator()">초기화</button>
     <div id="output-container">
-        <div id="target-button-container">
-            <button id="target-button"></button>
-            <span id="target-size-label"></span>
-            <span id="interaction-feedback"></span>
+        <div id="target-info">
+            <div id="target-size" class="info-box">
+                <span class="info-label">타겟 크기:</span>
+                <span id="target-size-value" class="info-value"></span>
+            </div>
+            <div id="target-spacing" class="info-box">
+                <span class="info-label">적용 간격(타겟 포함):</span>
+                <span id="target-spacing-value" class="info-value"></span>
+            </div>
         </div>
-        <ul id="result"></ul>
+        <div id="target-display">
+            <div id="original-target-container">
+                <h3>단일 타겟</h3>
+                <div id="target-1-wrapper">
+                    <div id="target-1"></div>
+                </div>
+            </div>
+            <div id="sequence-target-container">
+                <h3>연속 타겟</h3>
+                <div id="targets-2-to-4"></div>
+            </div>
+            <div id="interaction-info">
+                <h3>상호작용 정보</h3>
+                <div id="interaction-content"></div>
+            </div>
+        </div>
     </div>
+
+    <div id="result"></div>
     <p id="warning"></p>
     <script src="script.js"></script>
 </body>

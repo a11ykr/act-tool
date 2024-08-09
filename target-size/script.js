@@ -45,76 +45,10 @@ function detectDevice() {
             ppi = 264;
             scaleFactor = 2;
         }
-    } else if (/Pixel/.test(userAgent)) {
-        if (/Pixel 6 Pro/.test(userAgent)) {
-            detectedModel = "Google Pixel 6 Pro";
-            ppi = 441;
-            scaleFactor = 3;
-        } else if (/Pixel 6/.test(userAgent)) {
-            detectedModel = "Google Pixel 6";
-            ppi = 411;
-            scaleFactor = 2.625;
-        } else if (/Pixel 5/.test(userAgent)) {
-            detectedModel = "Google Pixel 5";
-            ppi = 432;
-            scaleFactor = 3;
-        } else if (/Pixel 4 XL/.test(userAgent)) {
-            detectedModel = "Google Pixel 4 XL";
-            ppi = 444;
-            scaleFactor = 2.75;
-        } else if (/Pixel 4/.test(userAgent)) {
-            detectedModel = "Google Pixel 4";
-            ppi = 444;
-            scaleFactor = 2.75;
-        } else {
-            detectedModel = "Google Pixel (기타 모델)";
-            ppi = 420;
-            scaleFactor = 2.75;
-        }
     } else if (/Android/.test(userAgent)) {
-        if (/SM-S908/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S22 Ultra";
-            ppi = 500;
-            scaleFactor = 4;
-        } else if (/SM-S901/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S22";
-            ppi = 422;
-            scaleFactor = 3;
-        } else if (/SM-G998/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S21 Ultra";
-            ppi = 515;
-            scaleFactor = 3.75;
-        } else if (/SM-F916/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Z Fold2";
-            ppi = 373;
-            scaleFactor = 2;
-        } else if (/SM-F700/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Z Flip";
-            ppi = 425;
-            scaleFactor = 2.625;
-        } else if (/SM-T970/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Tab S7+";
-            ppi = 274;
-            scaleFactor = 2;
-        } else if (/SM-X906/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Tab S8 Ultra";
-            ppi = 266;
-            scaleFactor = 2;
-        } else if (/OnePlus/.test(userAgent)) {
-            detectedModel = "OnePlus (other)";
-            ppi = 403;
-            scaleFactor = 2.75;
-        } else if (/Pixel/.test(userAgent)) {
-            detectedModel = "Google Pixel (other)";
-            ppi = 421;
-            scaleFactor = 2.5;
-        } else {
-            detectedModel = "Android (other)";
-            ppi = 400;
-            scaleFactor = 2.75;
-        }
-    } else {
-        detectedModel = "PC/기타 기기";
+        detectedModel = "Android 기기";
+        ppi = 160 * devicePixelRatio;
+        scaleFactor = devicePixelRatio;
     }
 
     document.getElementById('deviceInfo').textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, 디스플레이 배율: ${scaleFactor.toFixed(1)}`;
@@ -129,6 +63,7 @@ function detectDevice() {
         }
     }
 }
+
 function updateDeviceInfo() {
     const deviceModel = document.getElementById('deviceModel');
     const [ppi, scaleFactor, modelName] = deviceModel.value.split(',');
@@ -155,57 +90,106 @@ function calculate() {
     const sideCSSPixels = sidePhysicalPixels / scaleFactor;
     const roundedCSSPixels = Math.round(sideCSSPixels);
 
-    const targetButtonContainer = document.getElementById('target-button-container');
-    const targetButton = document.getElementById('target-button');
-    const containerWidth = targetButtonContainer.offsetWidth;
-    const buttonSize = Math.min(roundedCSSPixels, containerWidth);
+    // WCAG 2.2 가이드라인에 따른 최소 간격 계산 (타겟 크기 포함)
+    const minTotalSpace = Math.max(24, roundedCSSPixels);
+    const minGap = Math.max(0, minTotalSpace - roundedCSSPixels);
 
-    targetButton.style.width = `${buttonSize}px`;
-    targetButton.style.height = `${buttonSize}px`;
-    
-    const targetSizeLabel = document.getElementById('target-size-label');
-    targetSizeLabel.textContent = `${roundedCSSPixels}px`;
+    updateTargetInfo(roundedCSSPixels, minTotalSpace);
+
+    const target1Wrapper = document.getElementById('target-1-wrapper');
+    const targetsContainer = document.getElementById('targets-2-to-4');
+    target1Wrapper.innerHTML = '';
+    targetsContainer.innerHTML = '';
+
+    // 단일 타겟 (1번) 생성
+    const originalTarget = createTargetButton(roundedCSSPixels, 1);
+    target1Wrapper.appendChild(originalTarget);
+    target1Wrapper.style.width = `${roundedCSSPixels}px`;
+    target1Wrapper.style.height = `${roundedCSSPixels}px`;
+
+    // 연속 타겟 생성 및 배치
+    for (let i = 0; i < 3; i++) {
+        const sequenceTarget = createTargetButton(roundedCSSPixels, i + 2);
+        sequenceTarget.style.left = `${i * (roundedCSSPixels + minGap)}px`;
+        targetsContainer.appendChild(sequenceTarget);
+    }
+
+    // 타겟 컨테이너의 크기 설정 (최소 200px, 필요시 더 크게)
+    const calculatedWidth = 3 * roundedCSSPixels + 2 * minGap;
+    const containerWidth = Math.max(200, calculatedWidth);
+    targetsContainer.style.width = `${containerWidth}px`;
+    targetsContainer.style.height = `${roundedCSSPixels}px`;
 
     const resultText = `
         <li><strong>선택된 모델:</strong> ${modelName}</li>
         <li><strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)</li>
-        <li><strong>화면 픽셀 밀도:</strong> ${ppi} PPI<br></li>
+        <li><strong>화면 픽셀 밀도:</strong> ${ppi} PPI</li>
         <li><strong>디스플레이 배율:</strong> ${scaleFactor}x</li>
         <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
         <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>
         <li><strong>변환 CSS 픽셀 크기:</strong> ${roundedCSSPixels}px</li>
+        <li><strong>타겟 포함 간격:</strong> ${minTotalSpace}px</li>
+        <li><strong>타겟 간 실제 간격:</strong> ${minGap}px</li>
     `;
 
     document.getElementById('result').innerHTML = resultText;
 
     document.getElementById('warning').innerHTML = `
         주의: 실제 물리적 크기는 화면 설정과 기기에 따라 다를 수 있습니다.<br>
-        이 시각화는 참고용이며, 정확한 물리적 크기를 보장하지 않습니다.
+        이 시각화는 참고용이며, 정확한 물리적 크기를 보장하지 않습니다.<br>
+        타겟 크기 포함 간격을 자동으로 적용합니다(최소 24px, WCAG 2.2 기준).
     `;
 
     setupButtonInteractions();
 }
 
+function updateTargetInfo(targetSize, totalSpace) {
+    document.getElementById('target-size-value').textContent = `${targetSize}px`;
+    document.getElementById('target-spacing-value').textContent = `${totalSpace}px (간격: ${totalSpace - targetSize}px)`;
+}
+
+
+function createTargetButton(size, number) {
+    const targetButton = document.createElement('div');
+    targetButton.className = 'target-button';
+    targetButton.style.width = `${size}px`;
+    targetButton.style.height = `${size}px`;
+    targetButton.textContent = number;
+    return targetButton;
+}
+
+function updateTargetInfo(targetSize, spacing) {
+    document.getElementById('target-size-value').textContent = `${targetSize}px`;
+    document.getElementById('target-spacing-value').textContent = `${spacing}px`;
+}
+
 function setupButtonInteractions() {
-    const targetButton = document.getElementById('target-button');
-    const feedbackSpan = document.getElementById('interaction-feedback');
+    const targetButtons = document.querySelectorAll('.target-button');
+    const interactionContent = document.getElementById('interaction-content');
 
-    targetButton.onmouseover = () => {
-        feedbackSpan.textContent = "마우스 오버";
-    };
+    targetButtons.forEach((button) => {
+        button.onmouseover = () => {
+            updateInteractionInfo(`타겟 ${button.textContent} 마우스 오버`);
+        };
 
-    targetButton.onmouseout = () => {
-        feedbackSpan.textContent = "";
-    };
+        button.onmouseout = () => {
+            updateInteractionInfo("");
+        };
 
-    targetButton.onclick = () => {
-        feedbackSpan.textContent = "클릭";
-    };
+        button.onclick = () => {
+            updateInteractionInfo(`타겟 ${button.textContent} 클릭`);
+        };
 
-    targetButton.ontouchstart = (e) => {
-        e.preventDefault();
-        feedbackSpan.textContent = "터치";
-    };
+        button.ontouchstart = (e) => {
+            e.preventDefault();
+            updateInteractionInfo(`타겟 ${button.textContent} 터치`);
+        };
+    });
+}
+
+function updateInteractionInfo(content) {
+    const interactionContent = document.getElementById('interaction-content');
+    interactionContent.textContent = content;
 }
 
 function resetCalculator() {
@@ -215,11 +199,16 @@ function resetCalculator() {
     document.getElementById('scaleFactor').value = '1';
     document.getElementById('result').innerHTML = '';
     document.getElementById('warning').innerHTML = '';
-    const targetButton = document.getElementById('target-button');
-    targetButton.style.width = '32px';
-    targetButton.style.height = '32px';
-    document.getElementById('target-size-label').textContent = '';
-    document.getElementById('interaction-feedback').textContent = '';
+    const target1Container = document.getElementById('target-1');
+    const targetsContainer = document.getElementById('targets-2-to-4');
+    target1Container.innerHTML = '';
+    targetsContainer.innerHTML = '';
+    
+    updateTargetInfo('-', '-');
+    
+    const modal = document.getElementById('interactionModal');
+    modal.style.display = "none";
+    
     detectDevice();
 }
 
@@ -227,4 +216,5 @@ window.onload = () => {
     resetCalculator();
     detectDevice();
     updateDeviceInfo();
+    updateInteractionInfo();
 };
