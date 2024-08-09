@@ -206,9 +206,6 @@ function resetCalculator() {
     
     updateTargetInfo('-', '-');
     
-    const modal = document.getElementById('interactionModal');
-    modal.style.display = "none";
-    
     detectDevice();
 }
 
