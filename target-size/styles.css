@@ -224,8 +224,8 @@ button#resetBtn:hover {
         flex-direction: column;
     }
 
-    #original-target-container, #sequence-target-container {
-        width: 100%;
+    #original-target-container, #sequence-target-container, #interaction-info {
+        width: calc(100% - 30px);
         margin-right: 0;
     }
 }
