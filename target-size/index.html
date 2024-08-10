@@ -19,16 +19,16 @@
 </head>
 <body>
     <h1>타겟 크기 계산기</h1>
-    <p>이 계산기는 터치 타겟이나 UI 요소의 물리적 크기를 다양한 기기에서의 픽셀 크기로 변환합니다.</p>
+    <p>이 계산기는 터치용 타겟이나 UI 요소의 물리적 크기를 다양한 기기에서의 픽셀 크기로 변환합니다.</p>
     <div id="deviceInfo"></div>
     <div class="input-group">
-        <label for="diagonalLength">타겟 대각선 길이 (mm):</label>
+        <label for="diagonalLength">타겟 대각선 길이(mm):</label>
         <input type="number" id="diagonalLength" min="0.1" step="0.1" value="6">
     </div>
     <div class="input-group">
         <label for="deviceModel">기기 모델 선택:</label>
         <select id="deviceModel" onchange="updateDeviceInfo()">
-            <option value="">직접 입력</option>
+            <option value="">기기 감지/자동 입력</option>
             <optgroup label="iPhone">
                 <option value="460,3,iPhone 15 시리즈">iPhone 15 시리즈</option>
                 <option value="460,3,iPhone 14 Pro/Pro Max">iPhone 14 Pro/Pro Max</option>
@@ -85,12 +85,12 @@
         </select>
     </div>
     <div class="input-group">
-        <label for="ppi">화면 픽셀 밀도 (PPI): (주의 필요. 맥북 등은 다를 수 있음)</label>
+        <label for="ppi">화면 픽셀 밀도 (<abbr title="Pixel Per Inch">PPI</abbr>): (맥북 등은 확인 필요)</label>
         <input type="number" id="ppi" min="1" step="1" value="460">
     </div>
     <div class="input-group">
         <label for="scaleFactor">디스플레이 배율:</label>
-        <input type="number" id="scaleFactor" min="1" step="0.1" value="3">
+        <input type="number" id="scaleFactor" min="1" step="0.01" value="3">
     </div>
     <button id="calculateBtn" onclick="calculate()">계산</button>
     <button id="resetBtn" onclick="resetCalculator()">초기화</button>
