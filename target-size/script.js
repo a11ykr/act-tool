@@ -326,20 +326,22 @@ function calculate() {
 
     const resultText = `
         <li><strong>선택된 모델:</strong> ${modelName}</li>
-        <li><strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)</li>
+        <li><strong>타겟 대각선 길이:</strong> ${diagonalMm.toFixed(2)}mm (${diagonalInches.toFixed(4)} inches)</li>
         <li><strong>화면 픽셀 밀도:</strong> ${ppi} PPI</li>
         <li><strong>Device Pixel Ratio:</strong> ${dpr}</li>
+        <li><strong>타겟 대각선 길이 (물리적 픽셀):</strong> ${diagonalPhysicalPixels.toFixed(2)} 픽셀</li>
         <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
         <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>
-        <li><strong>변환 CSS 픽셀 크기 (반올림):</strong> ${roundedCSSPixels}px</li>
-        <li><strong>실제 물리적 크기:</strong> ${physicalSizeMm.toFixed(2)}mm</li>
+        <li><strong>타겟 한 변의 길이 (반올림된 CSS 픽셀):</strong> ${roundedCSSPixels}px</li>
+        <li><strong>실제 물리적 크기 (대각선):</strong> ${(physicalSizeMm * Math.sqrt(2)).toFixed(2)}mm</li>
+        <li><strong>실제 물리적 크기 (한 변):</strong> ${physicalSizeMm.toFixed(2)}mm</li>
     `;
 
     document.getElementById('result').innerHTML = resultText;
     document.getElementById('warning').innerHTML = `
         주의: 실제 물리적 크기는 화면 설정과 기기에 따라 다를 수 있습니다.<br>
         이 시각화는 참고용이며, 정확한 물리적 크기를 보장하지 않습니다.<br>
-        소수점 단위의 CSS pixel은 반올림 처리합니다.
+        CSS 픽셀 값은 정수로 반올림됩니다.
     `;
 
     setupButtonInteractions();
@@ -431,7 +433,7 @@ function generateTable() {
         return;
     }
 
-    table.innerHTML = '<caption>CSS 픽셀 길이별 물리적 크기 환산(정사각형 대각선 길이, mm)</caption>'; // 기존 테이블 내용 초기화
+    table.innerHTML = '<caption>CSS 픽셀 크기별 물리적 크기 환산(대각선 길이, mm)</caption>';
 
     const cssPixelSizes = [16, 24, 32, 44, 48]; // CSS 픽셀 크기
 
