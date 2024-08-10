@@ -192,7 +192,7 @@ function calculate() {
     }
 
     // 타겟 컨테이너의 크기 설정 (최소 200px, 필요시 더 크게)
-    const calculatedWidth = 3 * roundedCSSPixels + 2 * minGap;
+    const calculatedWidth = 3 * roundedCSSPixels;
     const containerWidth = Math.max(200, calculatedWidth);
     targetsContainer.style.width = `${containerWidth}px`;
     targetsContainer.style.height = `${roundedCSSPixels}px`;
