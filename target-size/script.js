@@ -1,3 +1,94 @@
+let devicesData = {
+    "devices": [
+        {
+            "category": "iPhone",
+            "models": [
+                { "name": "iPhone 15 시리즈", "ppi": 460, "scaleFactor": 3 },
+                { "name": "iPhone 14 Pro/Pro Max", "ppi": 460, "scaleFactor": 3 },
+                { "name": "iPhone 13 Pro/Pro Max", "ppi": 460, "scaleFactor": 3 },
+                { "name": "iPhone SE (2nd/3rd gen)", "ppi": 326, "scaleFactor": 2 },
+                { "name": "iPhone 12 mini", "ppi": 401, "scaleFactor": 3 },
+                { "name": "iPhone 11", "ppi": 326, "scaleFactor": 3 },
+                { "name": "iPhone 8/7/6s/6", "ppi": 326, "scaleFactor": 2 }
+            ]
+        },
+        {
+            "category": "iPad",
+            "models": [
+                { "name": "iPad Pro 12.9-inch (5th gen)", "ppi": 264, "scaleFactor": 2 },
+                { "name": "iPad Pro 11-inch (3rd gen)", "ppi": 264, "scaleFactor": 2 },
+                { "name": "iPad Air (5th gen)", "ppi": 264, "scaleFactor": 2 },
+                { "name": "iPad mini (6th gen)", "ppi": 326, "scaleFactor": 2 },
+                { "name": "iPad (9th gen)", "ppi": 264, "scaleFactor": 2 }
+            ]
+        },
+        {
+            "category": "Samsung Galaxy",
+            "models": [
+                { "name": "Samsung Galaxy S22 Ultra", "ppi": 500, "scaleFactor": 4 },
+                { "name": "Samsung Galaxy S22", "ppi": 422, "scaleFactor": 3 },
+                { "name": "Samsung Galaxy S22+", "ppi": 393, "scaleFactor": 3 },
+                { "name": "Samsung Galaxy S21 Ultra", "ppi": 515, "scaleFactor": 3.75 },
+                { "name": "Samsung Galaxy S21", "ppi": 421, "scaleFactor": 3 },
+                { "name": "Samsung Galaxy S20 Ultra", "ppi": 525, "scaleFactor": 3.5 },
+                { "name": "Samsung Galaxy S20", "ppi": 563, "scaleFactor": 4 },
+                { "name": "Samsung Galaxy S10+", "ppi": 522, "scaleFactor": 3.5 },
+                { "name": "Samsung Galaxy S10", "ppi": 550, "scaleFactor": 4 },
+                { "name": "Samsung Galaxy S9+", "ppi": 529, "scaleFactor": 4 },
+                { "name": "Samsung Galaxy S9", "ppi": 570, "scaleFactor": 4 },
+                { "name": "Samsung Galaxy Z Fold2", "ppi": 373, "scaleFactor": 2 },
+                { "name": "Samsung Galaxy Z Flip", "ppi": 425, "scaleFactor": 2.625 },
+                { "name": "Samsung Galaxy Note 20 Ultra", "ppi": 496, "scaleFactor": 3.5 },
+                { "name": "Samsung Galaxy Note 20", "ppi": 393, "scaleFactor": 2.625 }
+            ]
+        },
+        {
+            "category": "Samsung Galaxy Tab",
+            "models": [
+                { "name": "Samsung Galaxy Tab S8 Ultra", "ppi": 266, "scaleFactor": 2 },
+                { "name": "Samsung Galaxy Tab S7+", "ppi": 274, "scaleFactor": 2 },
+                { "name": "Samsung Galaxy Tab S6", "ppi": 276, "scaleFactor": 2 },
+                { "name": "Samsung Galaxy Tab A7", "ppi": 287, "scaleFactor": 1.5 }
+            ]
+        },
+        {
+            "category": "Google Pixel",
+            "models": [
+                { "name": "Google Pixel 6 Pro", "ppi": 441, "scaleFactor": 3 },
+                { "name": "Google Pixel 6", "ppi": 411, "scaleFactor": 2.625 },
+                { "name": "Google Pixel 5", "ppi": 432, "scaleFactor": 3 },
+                { "name": "Google Pixel 4 XL", "ppi": 444, "scaleFactor": 2.75 },
+                { "name": "Google Pixel 4", "ppi": 444, "scaleFactor": 2.75 }
+            ]
+        },
+        {
+            "category": "Other Android",
+            "models": [
+                { "name": "OnePlus 9 Pro", "ppi": 403, "scaleFactor": 2.75 },
+                { "name": "Xiaomi Mi 11", "ppi": 393, "scaleFactor": 2.75 },
+                { "name": "Sony Xperia 1 III", "ppi": 443, "scaleFactor": 3.5 },
+                { "name": "Huawei P40 Pro", "ppi": 387, "scaleFactor": 2.75 },
+                { "name": "Motorola Edge+", "ppi": 370, "scaleFactor": 3 }
+            ]
+        },
+        {
+            "category": "Laptops",
+            "models": [
+                { "name": "MacBook Pro 16-inch (2021)", "ppi": 254, "scaleFactor": 2 },
+                { "name": "MacBook Pro 14-inch (2021)", "ppi": 254, "scaleFactor": 2 },
+                { "name": "MacBook Air 13-inch (M1, 2020)", "ppi": 227, "scaleFactor": 2 },
+                { "name": "Dell XPS 15 (4K)", "ppi": 282, "scaleFactor": 2 },
+                { "name": "Dell XPS 13 (4K)", "ppi": 331, "scaleFactor": 2 },
+                { "name": "HP Spectre x360 14 (3K2K)", "ppi": 254, "scaleFactor": 2 },
+                { "name": "Lenovo ThinkPad X1 Carbon (4K)", "ppi": 331, "scaleFactor": 2 },
+                { "name": "Microsoft Surface Laptop 4 (13.5-inch)", "ppi": 201, "scaleFactor": 1.5 },
+                { "name": "ASUS ROG Zephyrus G14 (QHD)", "ppi": 204, "scaleFactor": 1.5 },
+                { "name": "Razer Blade 15 (4K OLED)", "ppi": 282, "scaleFactor": 2 }
+            ]
+        }
+    ]
+};
+
 function detectDevice() {
     const userAgent = navigator.userAgent;
     const devicePixelRatio = window.devicePixelRatio || 1;
@@ -287,3 +378,70 @@ window.onload = () => {
     updateDeviceInfo();
     updateInteractionInfo();
 };
+
+// 물리적 크기 계산
+function calculatePhysicalSize(cssPixels, ppi, scaleFactor) {
+    return (cssPixels * Math.sqrt(2) * scaleFactor / ppi) * 25.4;
+}
+
+// 표 생성
+function generateTable() {
+    const table = document.getElementById('sizeByDevice');
+    if (!table) {
+        console.error('Table not found');
+        return;
+    }
+
+    table.innerHTML = '<caption>CSS 픽셀 크기별 물리적 크기 환산(정사각형 대각선 길이, mm)</caption>'; // 기존 테이블 내용 초기화
+
+    const cssPixelSizes = [16, 24, 32, 44, 48]; // CSS 픽셀 크기
+
+    // thead 생성
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    // '기기' 열 헤더
+    const deviceHeader = document.createElement('th');
+    deviceHeader.textContent = '기기';
+    headerRow.appendChild(deviceHeader);
+
+    // CSS 픽셀 크기 열 헤더
+    cssPixelSizes.forEach(size => {
+        const sizeHeader = document.createElement('th');
+        sizeHeader.textContent = `${size}px`;
+        headerRow.appendChild(sizeHeader);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // tbody 생성
+    const tbody = document.createElement('tbody');
+
+    devicesData.devices.forEach(category => {
+        category.models.forEach(device => {
+            const row = document.createElement('tr');
+
+            // 기기 이름 셀
+            const nameCell = document.createElement('th');
+            nameCell.classList.add("device-name");
+            nameCell.textContent = device.name;
+            row.appendChild(nameCell);
+
+            // CSS 픽셀 크기별 물리적 크기 계산 및 셀 추가
+            cssPixelSizes.forEach(pixelSize => {
+                const sizeCell = document.createElement('td');
+                const physicalSize = calculatePhysicalSize(pixelSize, device.ppi, device.scaleFactor);
+                sizeCell.textContent = physicalSize.toFixed(2);
+                row.appendChild(sizeCell);
+            });
+
+            tbody.appendChild(row);
+        });
+    });
+
+    table.appendChild(tbody);
+}
+
+// 페이지 로드 시 표 생성
+document.addEventListener('DOMContentLoaded', generateTable);

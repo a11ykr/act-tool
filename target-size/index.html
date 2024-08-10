@@ -121,6 +121,11 @@
 
     <div id="result"></div>
     <p id="warning"></p>
+
+    <h2>CSS 픽셀에 대한 대각선 길이 환산</h2>
+    <p>대각선 길이(mm) = (CSS픽셀 * √2 * <span title="디바이스 기본 디스플레이 배율">Scale Factor</span> / <span title="화면 픽셀 밀도">PPI</span>) * <span title="인치 변환">25.4</span></p>
+    <table id="sizeByDevice"></table>
+    <p class="note">참고: 모든 값은 소수점 둘째 자리까지 반올림 처리</p>
     <script src="script.js"></script>
 </body>
 </html>
