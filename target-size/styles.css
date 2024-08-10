@@ -220,11 +220,15 @@ button#resetBtn:hover {
     }
 }
 @media (max-width: 768px) {
+    #target-display {
+        justify-content: stretch;
+    }
+
     #original-target-container {
         width: 25%;
     }
     #sequence-target-container {
-        width: calc(62% - 30px);
+        width: calc(75% - 84px);
     }
     #interaction-info {
         width: calc(100% - 30px);
