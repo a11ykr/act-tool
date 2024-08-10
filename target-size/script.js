@@ -247,12 +247,12 @@ function detectDevice() {
     }
 
     // Scale Factor 입력 필드 업데이트
-    const scaleFactorInput = document.getElementById('scaleFactor');
-    if (scaleFactorInput) {
-        scaleFactorInput.value = scaleFactor;
-    } else {
-        console.error('scaleFactor input element not found');
-    }
+    // const scaleFactorInput = document.getElementById('scaleFactor');
+    // if (scaleFactorInput) {
+    //     scaleFactorInput.value = scaleFactor;
+    // } else {
+    //     console.error('scaleFactor input element not found');
+    // }
 
     // 기기 모델 선택 업데이트
     const modelSelect = document.getElementById('deviceModel');
@@ -273,7 +273,7 @@ function updateDeviceInfo() {
     const [ppi, scaleFactor, dpr, modelName] = deviceModel.value.split(',');
     if (ppi && scaleFactor && dpr) {
         document.getElementById('ppi').value = ppi;
-        document.getElementById('scaleFactor').value = scaleFactor;
+        // document.getElementById('scaleFactor').value = scaleFactor;
         document.getElementById('dpr').value = dpr;
     }
 }
@@ -400,7 +400,7 @@ function resetCalculator() {
     document.getElementById('diagonalLength').value = '6';
     document.getElementById('deviceModel').value = '';
     document.getElementById('ppi').value = '96';
-    document.getElementById('scaleFactor').value = '1';
+    // document.getElementById('scaleFactor').value = '1';
     document.getElementById('result').innerHTML = '';
     document.getElementById('warning').innerHTML = '';
     const target1Container = document.getElementById('target-1');
