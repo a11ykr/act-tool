@@ -46,8 +46,88 @@ function detectDevice() {
             scaleFactor = 2;
         }
     } else if (/Android/.test(userAgent)) {
-        detectedModel = "Android 기기";
-        ppi = 160 * devicePixelRatio;
+        // Samsung
+        if (/SM-S908[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S22 Ultra";
+            ppi = 500;
+        } else if (/SM-S901[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S22";
+            ppi = 422;
+        } else if (/SM-S906[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S22+";
+            ppi = 393;
+        } else if (/SM-G998[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S21 Ultra";
+            ppi = 515;
+        } else if (/SM-G991[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy S21";
+            ppi = 421;
+        } else if (/SM-F926[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Z Fold3";
+            ppi = 374;
+        } else if (/SM-F711[BNE]/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Z Flip3";
+            ppi = 425;
+        } else if (/SM-X900/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Tab S8 Ultra";
+            ppi = 240;
+        } else if (/SM-T970/.test(userAgent)) {
+            detectedModel = "Samsung Galaxy Tab S7+";
+            ppi = 266;
+        }
+        // Google Pixel
+        else if (/Pixel 6 Pro/.test(userAgent)) {
+            detectedModel = "Google Pixel 6 Pro";
+            ppi = 512;
+        } else if (/Pixel 6/.test(userAgent)) {
+            detectedModel = "Google Pixel 6";
+            ppi = 411;
+        } else if (/Pixel 5/.test(userAgent)) {
+            detectedModel = "Google Pixel 5";
+            ppi = 432;
+        } else if (/Pixel 4 XL/.test(userAgent)) {
+            detectedModel = "Google Pixel 4 XL";
+            ppi = 537;
+        } else if (/Pixel 4/.test(userAgent)) {
+            detectedModel = "Google Pixel 4";
+            ppi = 444;
+        }
+        // OnePlus
+        else if (/OnePlus 9 Pro/.test(userAgent)) {
+            detectedModel = "OnePlus 9 Pro";
+            ppi = 525;
+        }
+        // Xiaomi
+        else if (/Mi 11/.test(userAgent)) {
+            detectedModel = "Xiaomi Mi 11";
+            ppi = 515;
+        }
+        // Sony
+        else if (/XQ-BC72/.test(userAgent)) {
+            detectedModel = "Sony Xperia 1 III";
+            ppi = 643;
+        }
+        // Huawei
+        else if (/ELS-NX9/.test(userAgent)) {
+            detectedModel = "Huawei P40 Pro";
+            ppi = 441;
+        }
+        // Motorola
+        else if (/motorola edge\+/.test(userAgent)) {
+            detectedModel = "Motorola Edge+";
+            ppi = 385;
+        }
+        // LG (참고: LG는 스마트폰 사업을 중단했지만, 기존 기기를 위해 포함)
+        else if (/LM-G900/.test(userAgent)) {
+            detectedModel = "LG Velvet";
+            ppi = 395;
+        } else if (/LM-V600/.test(userAgent)) {
+            detectedModel = "LG V60 ThinQ";
+            ppi = 395;
+        } else {
+            detectedModel = "Android 기기";
+            ppi = 160 * devicePixelRatio;
+        }
         scaleFactor = devicePixelRatio;
     }
 
@@ -128,7 +208,6 @@ function calculate() {
     `;
 
     document.getElementById('result').innerHTML = resultText;
-
     document.getElementById('warning').innerHTML = `
         주의: 실제 물리적 크기는 화면 설정과 기기에 따라 다를 수 있습니다.<br>
         이 시각화는 참고용이며, 정확한 물리적 크기를 보장하지 않습니다.<br>
@@ -140,7 +219,7 @@ function calculate() {
 
 function updateTargetInfo(targetSize) {
     document.getElementById('target-size-value').textContent = `${targetSize}px`;
-    document.getElementById('target-spacing-value').textContent = `${targetSize}px`;
+    // document.getElementById('target-spacing-value').textContent = `${targetSize}px`;
 }
 
 
@@ -198,9 +277,7 @@ function resetCalculator() {
     const targetsContainer = document.getElementById('targets-2-to-4');
     target1Container.innerHTML = '';
     targetsContainer.innerHTML = '';
-    
     updateTargetInfo('-', '-');
-    
     detectDevice();
 }
 
