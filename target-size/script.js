@@ -90,6 +90,9 @@ function calculate() {
     const sideCSSPixels = sidePhysicalPixels / scaleFactor;
     const roundedCSSPixels = Math.round(sideCSSPixels);
 
+    // WCAG 2.2 가이드라인에 따른 최소 간격 계산 (타겟 크기 포함)
+    updateTargetInfo(roundedCSSPixels);
+
     const target1Wrapper = document.getElementById('target-1-wrapper');
     const targetsContainer = document.getElementById('targets-2-to-4');
     target1Wrapper.innerHTML = '';
@@ -135,9 +138,9 @@ function calculate() {
     setupButtonInteractions();
 }
 
-function updateTargetInfo(targetSize, totalSpace) {
+function updateTargetInfo(targetSize) {
     document.getElementById('target-size-value').textContent = `${targetSize}px`;
-    document.getElementById('target-spacing-value').textContent = `${totalSpace}px (간격: ${totalSpace - targetSize}px)`;
+    document.getElementById('target-spacing-value').textContent = `${targetSize}px`;
 }
 
 
@@ -195,7 +198,9 @@ function resetCalculator() {
     const targetsContainer = document.getElementById('targets-2-to-4');
     target1Container.innerHTML = '';
     targetsContainer.innerHTML = '';
+    
     updateTargetInfo('-', '-');
+    
     detectDevice();
 }
 
