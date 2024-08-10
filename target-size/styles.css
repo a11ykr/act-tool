@@ -243,6 +243,12 @@ button#resetBtn:hover {
     border-collapse: collapse;
     margin-top: 20px;
 }
+#sizeByDevice thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f2f2f2;
+}
 #sizeByDevice th, table.sizeByDevice td {
     border: 1px solid #ddd;
     padding: 8px;
@@ -260,12 +266,18 @@ button#resetBtn:hover {
 #sizeByDevice tr:hover {
     background-color: #f5f5f5;
 }
+#sizeByDevice {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
 #sizeByDevice .device-name {
     background-color: transparent;
     border: 0;
     text-align: left;
     font-weight: bold;
 }
+
 .note {
     margin-top: 20px;
     font-style: italic;
