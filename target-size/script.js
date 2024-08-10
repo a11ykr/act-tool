@@ -3,87 +3,87 @@ let devicesData = {
         {
             "category": "iPhone",
             "models": [
-                { "name": "iPhone 15 시리즈", "ppi": 460, "scaleFactor": 3 },
-                { "name": "iPhone 14 Pro/Pro Max", "ppi": 460, "scaleFactor": 3 },
-                { "name": "iPhone 13 Pro/Pro Max", "ppi": 460, "scaleFactor": 3 },
-                { "name": "iPhone SE (2nd/3rd gen)", "ppi": 326, "scaleFactor": 2 },
-                { "name": "iPhone 12 mini", "ppi": 401, "scaleFactor": 3 },
-                { "name": "iPhone 11", "ppi": 326, "scaleFactor": 3 },
-                { "name": "iPhone 8/7/6s/6", "ppi": 326, "scaleFactor": 2 }
+                { "name": "iPhone 15 시리즈", "ppi": 460, "dpr": 3, "scaleFactor": 1 },
+                { "name": "iPhone 14 Pro/Pro Max", "ppi": 460, "dpr": 3, "scaleFactor": 1 },
+                { "name": "iPhone 13 Pro/Pro Max", "ppi": 460, "dpr": 3, "scaleFactor": 1 },
+                { "name": "iPhone SE (2nd/3rd gen)", "ppi": 326, "dpr": 2, "scaleFactor": 1 },
+                { "name": "iPhone 12 mini", "ppi": 401, "dpr": 3, "scaleFactor": 1 },
+                { "name": "iPhone 11", "ppi": 326, "dpr": 2, "scaleFactor": 1 },
+                { "name": "iPhone 8/7/6s/6", "ppi": 326, "dpr": 2, "scaleFactor": 1 }
             ]
         },
         {
             "category": "iPad",
             "models": [
-                { "name": "iPad Pro 12.9-inch (5th gen)", "ppi": 264, "scaleFactor": 2 },
-                { "name": "iPad Pro 11-inch (3rd gen)", "ppi": 264, "scaleFactor": 2 },
-                { "name": "iPad Air (5th gen)", "ppi": 264, "scaleFactor": 2 },
-                { "name": "iPad mini (6th gen)", "ppi": 326, "scaleFactor": 2 },
-                { "name": "iPad (9th gen)", "ppi": 264, "scaleFactor": 2 }
+                { "name": "iPad Pro 12.9-inch (5th gen)", "ppi": 264, "dpr": 2, "scaleFactor": 1 },
+                { "name": "iPad Pro 11-inch (3rd gen)", "ppi": 264, "dpr": 2, "scaleFactor": 1 },
+                { "name": "iPad Air (5th gen)", "ppi": 264, "dpr": 2, "scaleFactor": 1 },
+                { "name": "iPad mini (6th gen)", "ppi": 326, "dpr": 2, "scaleFactor": 1 },
+                { "name": "iPad (9th gen)", "ppi": 264, "dpr": 2, "scaleFactor": 1 }
             ]
         },
         {
             "category": "Samsung Galaxy",
             "models": [
-                { "name": "Samsung Galaxy S22 Ultra", "ppi": 500, "scaleFactor": 4 },
-                { "name": "Samsung Galaxy S22", "ppi": 422, "scaleFactor": 3 },
-                { "name": "Samsung Galaxy S22+", "ppi": 393, "scaleFactor": 3 },
-                { "name": "Samsung Galaxy S21 Ultra", "ppi": 515, "scaleFactor": 3.75 },
-                { "name": "Samsung Galaxy S21", "ppi": 421, "scaleFactor": 3 },
-                { "name": "Samsung Galaxy S20 Ultra", "ppi": 525, "scaleFactor": 3.5 },
-                { "name": "Samsung Galaxy S20", "ppi": 563, "scaleFactor": 4 },
-                { "name": "Samsung Galaxy S10+", "ppi": 522, "scaleFactor": 3.5 },
-                { "name": "Samsung Galaxy S10", "ppi": 550, "scaleFactor": 4 },
-                { "name": "Samsung Galaxy S9+", "ppi": 529, "scaleFactor": 4 },
-                { "name": "Samsung Galaxy S9", "ppi": 570, "scaleFactor": 4 },
-                { "name": "Samsung Galaxy Z Fold2", "ppi": 373, "scaleFactor": 2 },
-                { "name": "Samsung Galaxy Z Flip", "ppi": 425, "scaleFactor": 2.625 },
-                { "name": "Samsung Galaxy Note 20 Ultra", "ppi": 496, "scaleFactor": 3.5 },
-                { "name": "Samsung Galaxy Note 20", "ppi": 393, "scaleFactor": 2.625 }
+                { "name": "Samsung Galaxy S22 Ultra", "ppi": 500, "dpr": 4, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S22", "ppi": 422, "dpr": 3, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S22+", "ppi": 393, "dpr": 3, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S21 Ultra", "ppi": 515, "dpr": 3.75, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S21", "ppi": 421, "dpr": 3, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S20 Ultra", "ppi": 525, "dpr": 3.5, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S20", "ppi": 563, "dpr": 4, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S10+", "ppi": 522, "dpr": 3.5, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S10", "ppi": 550, "dpr": 4, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S9+", "ppi": 529, "dpr": 4, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy S9", "ppi": 570, "dpr": 4, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Z Fold2", "ppi": 373, "dpr": 2, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Z Flip", "ppi": 425, "dpr": 2.625, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Note 20 Ultra", "ppi": 496, "dpr": 3.5, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Note 20", "ppi": 393, "dpr": 2.625, "scaleFactor": 1 }
             ]
         },
         {
             "category": "Samsung Galaxy Tab",
             "models": [
-                { "name": "Samsung Galaxy Tab S8 Ultra", "ppi": 266, "scaleFactor": 2 },
-                { "name": "Samsung Galaxy Tab S7+", "ppi": 274, "scaleFactor": 2 },
-                { "name": "Samsung Galaxy Tab S6", "ppi": 276, "scaleFactor": 2 },
-                { "name": "Samsung Galaxy Tab A7", "ppi": 287, "scaleFactor": 1.5 }
+                { "name": "Samsung Galaxy Tab S8 Ultra", "ppi": 266, "dpr": 2, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Tab S7+", "ppi": 274, "dpr": 2, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Tab S6", "ppi": 276, "dpr": 2, "scaleFactor": 1 },
+                { "name": "Samsung Galaxy Tab A7", "ppi": 287, "dpr": 1.5, "scaleFactor": 1 }
             ]
         },
         {
             "category": "Google Pixel",
             "models": [
-                { "name": "Google Pixel 6 Pro", "ppi": 441, "scaleFactor": 3 },
-                { "name": "Google Pixel 6", "ppi": 411, "scaleFactor": 2.625 },
-                { "name": "Google Pixel 5", "ppi": 432, "scaleFactor": 3 },
-                { "name": "Google Pixel 4 XL", "ppi": 444, "scaleFactor": 2.75 },
-                { "name": "Google Pixel 4", "ppi": 444, "scaleFactor": 2.75 }
+                { "name": "Google Pixel 6 Pro", "ppi": 441, "dpr": 3, "scaleFactor": 1 },
+                { "name": "Google Pixel 6", "ppi": 411, "dpr": 2.625, "scaleFactor": 1 },
+                { "name": "Google Pixel 5", "ppi": 432, "dpr": 3, "scaleFactor": 1 },
+                { "name": "Google Pixel 4 XL", "ppi": 444, "dpr": 2.75, "scaleFactor": 1 },
+                { "name": "Google Pixel 4", "ppi": 444, "dpr": 2.75, "scaleFactor": 1 }
             ]
         },
         {
             "category": "Other Android",
             "models": [
-                { "name": "OnePlus 9 Pro", "ppi": 403, "scaleFactor": 2.75 },
-                { "name": "Xiaomi Mi 11", "ppi": 393, "scaleFactor": 2.75 },
-                { "name": "Sony Xperia 1 III", "ppi": 443, "scaleFactor": 3.5 },
-                { "name": "Huawei P40 Pro", "ppi": 387, "scaleFactor": 2.75 },
-                { "name": "Motorola Edge+", "ppi": 370, "scaleFactor": 3 }
+                { "name": "OnePlus 9 Pro", "ppi": 403, "dpr": 2.75, "scaleFactor": 1 },
+                { "name": "Xiaomi Mi 11", "ppi": 393, "dpr": 2.75, "scaleFactor": 1 },
+                { "name": "Sony Xperia 1 III", "ppi": 443, "dpr": 3.5, "scaleFactor": 1 },
+                { "name": "Huawei P40 Pro", "ppi": 387, "dpr": 2.75, "scaleFactor": 1 },
+                { "name": "Motorola Edge+", "ppi": 370, "dpr": 3, "scaleFactor": 1 }
             ]
         },
         {
             "category": "Laptops",
             "models": [
-                { "name": "MacBook Pro 16-inch (2021)", "ppi": 254, "scaleFactor": 2 },
-                { "name": "MacBook Pro 14-inch (2021)", "ppi": 254, "scaleFactor": 2 },
-                { "name": "MacBook Air 13-inch (M1, 2020)", "ppi": 227, "scaleFactor": 2 },
-                { "name": "Dell XPS 15 (4K)", "ppi": 282, "scaleFactor": 2 },
-                { "name": "Dell XPS 13 (4K)", "ppi": 331, "scaleFactor": 2 },
-                { "name": "HP Spectre x360 14 (3K2K)", "ppi": 254, "scaleFactor": 2 },
-                { "name": "Lenovo ThinkPad X1 Carbon (4K)", "ppi": 331, "scaleFactor": 2 },
-                { "name": "Microsoft Surface Laptop 4 (13.5-inch)", "ppi": 201, "scaleFactor": 1.5 },
-                { "name": "ASUS ROG Zephyrus G14 (QHD)", "ppi": 204, "scaleFactor": 1.5 },
-                { "name": "Razer Blade 15 (4K OLED)", "ppi": 282, "scaleFactor": 2 }
+                { "name": "MacBook Pro 16-inch (2021)", "ppi": 254, "dpr": 2, "scaleFactor": 1 },
+                { "name": "MacBook Pro 14-inch (2021)", "ppi": 254, "dpr": 2, "scaleFactor": 1 },
+                { "name": "MacBook Air 13-inch (M1, 2020)", "ppi": 227, "dpr": 2, "scaleFactor": 1 },
+                { "name": "Dell XPS 15 (4K)", "ppi": 282, "dpr": 2, "scaleFactor": 1.5 },
+                { "name": "Dell XPS 13 (4K)", "ppi": 331, "dpr": 2, "scaleFactor": 1.5 },
+                { "name": "HP Spectre x360 14 (3K2K)", "ppi": 254, "dpr": 2, "scaleFactor": 1.5 },
+                { "name": "Lenovo ThinkPad X1 Carbon (4K)", "ppi": 331, "dpr": 2, "scaleFactor": 1.5 },
+                { "name": "Microsoft Surface Laptop 4 (13.5-inch)", "ppi": 201, "dpr": 1.5, "scaleFactor": 1.25 },
+                { "name": "ASUS ROG Zephyrus G14 (QHD)", "ppi": 204, "dpr": 1.5, "scaleFactor": 1.25 },
+                { "name": "Razer Blade 15 (4K OLED)", "ppi": 282, "dpr": 2, "scaleFactor": 1.5 }
             ]
         }
     ]
@@ -91,10 +91,10 @@ let devicesData = {
 
 function detectDevice() {
     const userAgent = navigator.userAgent;
-    const devicePixelRatio = window.devicePixelRatio || 1;
+    const dpr = window.devicePixelRatio || 1;
     let detectedModel = "알 수 없는 기기";
     let ppi = 96; // PC 기본값
-    let scaleFactor = devicePixelRatio;
+    let scaleFactor = 1;
 
     if (/iPhone/.test(userAgent)) {
         if (/iPhone1[345]/.test(userAgent)) {
@@ -222,35 +222,69 @@ function detectDevice() {
         scaleFactor = devicePixelRatio;
     }
 
-    document.getElementById('deviceInfo').textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, 디스플레이 배율: ${scaleFactor.toFixed(1)}`;
-    document.getElementById('ppi').value = ppi;
-    document.getElementById('scaleFactor').value = scaleFactor.toFixed(1);
+    // 감지된 정보를 화면에 표시
+    const deviceInfoElement = document.getElementById('deviceInfo');
+    if (deviceInfoElement) {
+        deviceInfoElement.textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, Device Pixel Ratio: ${dpr.toFixed(2)}, Scale Factor: ${scaleFactor}`;
+    } else {
+        console.error('deviceInfo element not found');
+    }
 
+    // PPI 입력 필드 업데이트
+    const ppiInput = document.getElementById('ppi');
+    if (ppiInput) {
+        ppiInput.value = ppi;
+    } else {
+        console.error('ppi input element not found');
+    }
+
+    // DPR 입력 필드 업데이트
+    const dprInput = document.getElementById('dpr');
+    if (dprInput) {
+        dprInput.value = dpr.toFixed(2);
+    } else {
+        console.error('dpr input element not found');
+    }
+
+    // Scale Factor 입력 필드 업데이트
+    const scaleFactorInput = document.getElementById('scaleFactor');
+    if (scaleFactorInput) {
+        scaleFactorInput.value = scaleFactor;
+    } else {
+        console.error('scaleFactor input element not found');
+    }
+
+    // 기기 모델 선택 업데이트
     const modelSelect = document.getElementById('deviceModel');
-    for (let i = 0; i < modelSelect.options.length; i++) {
-        if (modelSelect.options[i].text.includes(detectedModel)) {
-            modelSelect.selectedIndex = i;
-            break;
+    if (modelSelect) {
+        for (let i = 0; i < modelSelect.options.length; i++) {
+            if (modelSelect.options[i].text.includes(detectedModel)) {
+                modelSelect.selectedIndex = i;
+                break;
+            }
         }
+    } else {
+        console.error('deviceModel select element not found');
     }
 }
 
 function updateDeviceInfo() {
     const deviceModel = document.getElementById('deviceModel');
-    const [ppi, scaleFactor, modelName] = deviceModel.value.split(',');
-    if (ppi && scaleFactor) {
+    const [ppi, scaleFactor, dpr, modelName] = deviceModel.value.split(',');
+    if (ppi && scaleFactor && dpr) {
         document.getElementById('ppi').value = ppi;
         document.getElementById('scaleFactor').value = scaleFactor;
+        document.getElementById('dpr').value = dpr;
     }
 }
 
 function calculate() {
     const diagonalMm = parseFloat(document.getElementById('diagonalLength').value);
     const ppi = parseFloat(document.getElementById('ppi').value);
-    const scaleFactor = parseFloat(document.getElementById('scaleFactor').value);
+    const dpr = window.devicePixelRatio || 1;
     const modelName = document.getElementById('deviceModel').options[document.getElementById('deviceModel').selectedIndex].text;
 
-    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0 || isNaN(scaleFactor) || scaleFactor <= 0) {
+    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0) {
         alert('올바른 값을 입력해주세요.');
         return;
     }
@@ -258,10 +292,12 @@ function calculate() {
     const diagonalInches = diagonalMm / 25.4;
     const diagonalPhysicalPixels = diagonalInches * ppi;
     const sidePhysicalPixels = diagonalPhysicalPixels / Math.sqrt(2);
-    const sideCSSPixels = sidePhysicalPixels / scaleFactor;
+    const sideCSSPixels = sidePhysicalPixels / dpr;
     const roundedCSSPixels = Math.round(sideCSSPixels);
 
-    // WCAG 2.2 가이드라인에 따른 최소 간격 계산 (타겟 크기 포함)
+    // 물리적 크기 계산 (mm)
+    const physicalSizeMm = (roundedCSSPixels * dpr * 25.4) / ppi;
+
     updateTargetInfo(roundedCSSPixels);
 
     const target1Wrapper = document.getElementById('target-1-wrapper');
@@ -292,10 +328,11 @@ function calculate() {
         <li><strong>선택된 모델:</strong> ${modelName}</li>
         <li><strong>타겟 대각선 길이:</strong> ${diagonalMm}mm (${diagonalInches.toFixed(4)} inches)</li>
         <li><strong>화면 픽셀 밀도:</strong> ${ppi} PPI</li>
-        <li><strong>디스플레이 배율:</strong> ${scaleFactor}x</li>
+        <li><strong>Device Pixel Ratio:</strong> ${dpr}</li>
         <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
         <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>
-        <li><strong>변환 CSS 픽셀 크기:</strong> ${roundedCSSPixels}px</li>
+        <li><strong>변환 CSS 픽셀 크기 (반올림):</strong> ${roundedCSSPixels}px</li>
+        <li><strong>실제 물리적 크기:</strong> ${physicalSizeMm.toFixed(2)}mm</li>
     `;
 
     document.getElementById('result').innerHTML = resultText;
@@ -380,8 +417,10 @@ window.onload = () => {
 };
 
 // 물리적 크기 계산
-function calculatePhysicalSize(cssPixels, ppi, scaleFactor) {
-    return (cssPixels * Math.sqrt(2) * scaleFactor / ppi) * 25.4;
+function calculatePhysicalSize(cssPixels, ppi, dpr) {
+    const physicalPixels = cssPixels * dpr;
+    const inchSize = (physicalPixels * Math.sqrt(2)) / ppi;
+    return inchSize * 25.4; // inch를 mm로 변환
 }
 
 // 표 생성
@@ -431,7 +470,7 @@ function generateTable() {
             // CSS 픽셀 크기별 물리적 크기 계산 및 셀 추가
             cssPixelSizes.forEach(pixelSize => {
                 const sizeCell = document.createElement('td');
-                const physicalSize = calculatePhysicalSize(pixelSize, device.ppi, device.scaleFactor);
+                const physicalSize = calculatePhysicalSize(pixelSize, device.ppi, device.dpr);
                 sizeCell.textContent = physicalSize.toFixed(2);
                 row.appendChild(sizeCell);
                 if (physicalSize < 6) {
