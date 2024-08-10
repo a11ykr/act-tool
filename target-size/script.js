@@ -91,9 +91,6 @@ function calculate() {
     const roundedCSSPixels = Math.round(sideCSSPixels);
 
     // WCAG 2.2 가이드라인에 따른 최소 간격 계산 (타겟 크기 포함)
-    const minTotalSpace = Math.max(24, roundedCSSPixels);
-    const minGap = Math.max(0, minTotalSpace - roundedCSSPixels);
-
     updateTargetInfo(roundedCSSPixels, minTotalSpace);
 
     const target1Wrapper = document.getElementById('target-1-wrapper');
@@ -110,7 +107,7 @@ function calculate() {
     // 연속 타겟 생성 및 배치
     for (let i = 0; i < 3; i++) {
         const sequenceTarget = createTargetButton(roundedCSSPixels, i + 2);
-        sequenceTarget.style.left = `${i * (roundedCSSPixels + minGap)}px`;
+        sequenceTarget.style.left = `${i * roundedCSSPixels}px`;
         targetsContainer.appendChild(sequenceTarget);
     }
 
