@@ -90,9 +90,6 @@ function calculate() {
     const sideCSSPixels = sidePhysicalPixels / scaleFactor;
     const roundedCSSPixels = Math.round(sideCSSPixels);
 
-    // WCAG 2.2 가이드라인에 따른 최소 간격 계산 (타겟 크기 포함)
-    updateTargetInfo(roundedCSSPixels, minTotalSpace);
-
     const target1Wrapper = document.getElementById('target-1-wrapper');
     const targetsContainer = document.getElementById('targets-2-to-4');
     target1Wrapper.innerHTML = '';
@@ -125,8 +122,6 @@ function calculate() {
         <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
         <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>
         <li><strong>변환 CSS 픽셀 크기:</strong> ${roundedCSSPixels}px</li>
-        <li><strong>타겟 포함 간격:</strong> ${minTotalSpace}px</li>
-        <li><strong>타겟 간 실제 간격:</strong> ${minGap}px</li>
     `;
 
     document.getElementById('result').innerHTML = resultText;
@@ -134,7 +129,7 @@ function calculate() {
     document.getElementById('warning').innerHTML = `
         주의: 실제 물리적 크기는 화면 설정과 기기에 따라 다를 수 있습니다.<br>
         이 시각화는 참고용이며, 정확한 물리적 크기를 보장하지 않습니다.<br>
-        타겟 크기 포함 간격을 자동으로 적용합니다(최소 24px, WCAG 2.2 기준).
+        소수점 단위의 CSS pixel은 반올림 처리합니다.
     `;
 
     setupButtonInteractions();
@@ -200,9 +195,7 @@ function resetCalculator() {
     const targetsContainer = document.getElementById('targets-2-to-4');
     target1Container.innerHTML = '';
     targetsContainer.innerHTML = '';
-    
     updateTargetInfo('-', '-');
-    
     detectDevice();
 }
 
