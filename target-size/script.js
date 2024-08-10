@@ -392,7 +392,7 @@ function generateTable() {
         return;
     }
 
-    table.innerHTML = '<caption>CSS 픽셀 길아별 물리적 크기 환산(정사각형 대각선 길이, mm)</caption>'; // 기존 테이블 내용 초기화
+    table.innerHTML = '<caption>CSS 픽셀 길이별 물리적 크기 환산(정사각형 대각선 길이, mm)</caption>'; // 기존 테이블 내용 초기화
 
     const cssPixelSizes = [16, 24, 32, 44, 48]; // CSS 픽셀 크기
 
@@ -434,6 +434,9 @@ function generateTable() {
                 const physicalSize = calculatePhysicalSize(pixelSize, device.ppi, device.scaleFactor);
                 sizeCell.textContent = physicalSize.toFixed(2);
                 row.appendChild(sizeCell);
+                if (physicalSize < 6) {
+                    sizeCell.classList.add("small")
+                }
             });
 
             tbody.appendChild(row);

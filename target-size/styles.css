@@ -277,6 +277,9 @@ button#resetBtn:hover {
     text-align: left;
     font-weight: bold;
 }
+#sizeByDevice .small {
+    color: #c0392b;
+}
 
 .note {
     margin-top: 20px;
