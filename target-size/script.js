@@ -234,7 +234,7 @@ function createTargetButton(size, number) {
 
 function updateTargetInfo(targetSize, spacing) {
     document.getElementById('target-size-value').textContent = `${targetSize}px`;
-    document.getElementById('target-spacing-value').textContent = `${spacing}px`;
+    // document.getElementById('target-spacing-value').textContent = `${spacing}px`;
 }
 
 function setupButtonInteractions() {
