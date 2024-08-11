@@ -94,8 +94,8 @@ function detectDevice() {
     const dpr = window.devicePixelRatio || 1;
     let detectedModel = "알 수 없는 기기";
     let ppi = 96; // PC 기본값
-    let scaleFactor = 1;
 
+    // 기기 감지
     if (/iPhone/.test(userAgent)) {
         if (/iPhone1[345]/.test(userAgent)) {
             detectedModel = "iPhone 15 시리즈";
@@ -225,7 +225,7 @@ function detectDevice() {
     // 감지된 정보를 화면에 표시
     const deviceInfoElement = document.getElementById('deviceInfo');
     if (deviceInfoElement) {
-        deviceInfoElement.textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, Device Pixel Ratio: ${dpr.toFixed(2)}, Scale Factor: ${scaleFactor}`;
+        deviceInfoElement.textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, Device Pixel Ratio: ${dpr.toFixed(2)}`;
     } else {
         console.error('deviceInfo element not found');
     }
@@ -246,34 +246,39 @@ function detectDevice() {
         console.error('dpr input element not found');
     }
 
-    // Scale Factor 입력 필드 업데이트
-    // const scaleFactorInput = document.getElementById('scaleFactor');
-    // if (scaleFactorInput) {
-    //     scaleFactorInput.value = scaleFactor;
-    // } else {
-    //     console.error('scaleFactor input element not found');
-    // }
-
     // 기기 모델 선택 업데이트
     const modelSelect = document.getElementById('deviceModel');
     if (modelSelect) {
         for (let i = 0; i < modelSelect.options.length; i++) {
             if (modelSelect.options[i].text.includes(detectedModel)) {
                 modelSelect.selectedIndex = i;
+                updateDeviceInfo(); // 선택된 기기 정보로 업데이트
                 break;
             }
         }
     } else {
         console.error('deviceModel select element not found');
     }
+
+    updateDeviceInfo(); // 기기 정보 업데이트 후 다시 한 번 호출
 }
 
 function updateDeviceInfo() {
     const deviceModel = document.getElementById('deviceModel');
-    const [ppi, scaleFactor, dpr, modelName] = deviceModel.value.split(',');
-    if (ppi && scaleFactor && dpr) {
-        document.getElementById('ppi').value = ppi;
-        document.getElementById('dpr').value = dpr;
+    const selectedOption = deviceModel.options[deviceModel.selectedIndex];
+    
+    if (selectedOption && selectedOption.value) {
+        const [ppi, dpr, modelName] = selectedOption.value.split(',');
+        if (ppi && dpr) {
+            document.getElementById('ppi').value = ppi;
+            document.getElementById('dpr').value = dpr;
+        }
+    } else {
+        // 기기가 선택되지 않았을 때는 detectDevice 함수의 결과를 사용
+        const detectedPpi = document.getElementById('ppi').value;
+        const detectedDpr = window.devicePixelRatio || 1;
+        document.getElementById('ppi').value = detectedPpi || '96';
+        document.getElementById('dpr').value = detectedDpr.toFixed(2);
     }
 }
 
@@ -415,6 +420,9 @@ window.onload = () => {
     detectDevice();
     updateDeviceInfo();
     updateInteractionInfo();
+
+    // 기기 모델 선택 시 이벤트 리스너 추가
+    document.getElementById('deviceModel').addEventListener('change', updateDeviceInfo);
 };
 
 // 물리적 크기 계산
