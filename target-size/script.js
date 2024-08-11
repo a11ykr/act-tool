@@ -273,7 +273,6 @@ function updateDeviceInfo() {
     const [ppi, scaleFactor, dpr, modelName] = deviceModel.value.split(',');
     if (ppi && scaleFactor && dpr) {
         document.getElementById('ppi').value = ppi;
-        // document.getElementById('scaleFactor').value = scaleFactor;
         document.getElementById('dpr').value = dpr;
     }
 }
@@ -281,10 +280,10 @@ function updateDeviceInfo() {
 function calculate() {
     const diagonalMm = parseFloat(document.getElementById('diagonalLength').value);
     const ppi = parseFloat(document.getElementById('ppi').value);
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = parseFloat(document.getElementById('dpr').value);
     const modelName = document.getElementById('deviceModel').options[document.getElementById('deviceModel').selectedIndex].text;
 
-    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0) {
+    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0 || isNaN(dpr) || dpr <= 0) {
         alert('올바른 값을 입력해주세요.');
         return;
     }
