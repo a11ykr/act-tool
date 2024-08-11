@@ -249,12 +249,16 @@ function detectDevice() {
     // 기기 모델 선택 업데이트
     const modelSelect = document.getElementById('deviceModel');
     if (modelSelect) {
+        let matchFound = false;
         for (let i = 0; i < modelSelect.options.length; i++) {
             if (modelSelect.options[i].text.includes(detectedModel)) {
                 modelSelect.selectedIndex = i;
-                updateDeviceInfo(); // 선택된 기기 정보로 업데이트
+                matchFound = true;
                 break;
             }
+        }
+        if (!matchFound) {
+            modelSelect.value = ''; // 매치되는 모델이 없으면 선택 초기화
         }
     } else {
         console.error('deviceModel select element not found');
@@ -331,14 +335,10 @@ function calculate() {
     const resultText = `
         <li><strong>선택된 모델:</strong> ${modelName}</li>
         <li><strong>타겟 대각선 길이:</strong> ${diagonalMm.toFixed(2)}mm (${diagonalInches.toFixed(4)} inches)</li>
-        <li><strong>화면 픽셀 밀도:</strong> ${ppi} PPI</li>
-        <li><strong>Device Pixel Ratio:</strong> ${dpr}</li>
-        <li><strong>타겟 대각선 길이 (물리적 픽셀):</strong> ${diagonalPhysicalPixels.toFixed(2)} 픽셀</li>
-        <li><strong>타겟 한 변의 길이 (물리적 픽셀):</strong> ${sidePhysicalPixels.toFixed(2)} 픽셀</li>
-        <li><strong>타겟 한 변의 길이 (CSS 픽셀):</strong> ${sideCSSPixels.toFixed(2)} 픽셀</li>
-        <li><strong>타겟 한 변의 길이 (반올림된 CSS 픽셀):</strong> ${roundedCSSPixels}px</li>
-        <li><strong>실제 물리적 크기 (대각선):</strong> ${(physicalSizeMm * Math.sqrt(2)).toFixed(2)}mm</li>
-        <li><strong>실제 물리적 크기 (한 변):</strong> ${physicalSizeMm.toFixed(2)}mm</li>
+        <li><strong>화면 픽셀 밀도(PPI):</strong> ${ppi} / <strong>기기 픽셀 비율(DPR):</strong> ${dpr}</li>
+        <li><strong>타겟 한 변의 길이 (CSS 픽셀 / 반올림):</strong> ${sideCSSPixels.toFixed(2)}px / ${roundedCSSPixels}px</li>
+        <li><strong>물리적 타겟 길이(대각선/한 변):</strong> ${diagonalPhysicalPixels.toFixed(2)}px / ${sidePhysicalPixels.toFixed(2)}px</li>
+        <li><strong>실제 물리적 크기(대각선/한 변):</strong> ${(physicalSizeMm * Math.sqrt(2)).toFixed(2)}mm / ${physicalSizeMm.toFixed(2)}mm</li>
     `;
 
     document.getElementById('result').innerHTML = resultText;
@@ -351,11 +351,6 @@ function calculate() {
     setupButtonInteractions();
 }
 
-function updateTargetInfo(targetSize) {
-    document.getElementById('target-size-value').textContent = `${targetSize}px`;
-    // document.getElementById('target-spacing-value').textContent = `${targetSize}px`;
-}
-
 
 function createTargetButton(size, number) {
     const targetButton = document.createElement('div');
@@ -366,10 +361,15 @@ function createTargetButton(size, number) {
     return targetButton;
 }
 
-function updateTargetInfo(targetSize, spacing) {
+function updateTargetInfo(targetSize) {
     document.getElementById('target-size-value').textContent = `${targetSize}px`;
-    // document.getElementById('target-spacing-value').textContent = `${spacing}px`;
 }
+
+function updateInteractionInfo(content) {
+    const interactionContent = document.getElementById('interaction-content');
+    if (interactionContent) interactionContent.textContent = content;
+}
+
 
 function setupButtonInteractions() {
     const targetButtons = document.querySelectorAll('.target-button');
@@ -395,36 +395,47 @@ function setupButtonInteractions() {
     });
 }
 
-function updateInteractionInfo(content) {
-    const interactionContent = document.getElementById('interaction-content');
-    interactionContent.textContent = content;
-}
-
 function resetCalculator() {
     document.getElementById('diagonalLength').value = '6';
     document.getElementById('deviceModel').value = '';
     document.getElementById('ppi').value = '96';
-    // document.getElementById('scaleFactor').value = '1';
-    document.getElementById('result').innerHTML = '';
-    document.getElementById('warning').innerHTML = '';
-    const target1Container = document.getElementById('target-1');
+    document.getElementById('dpr').value = '1';
+    
+    // 결과 및 경고 메시지 초기화
+    const resultElement = document.getElementById('result');
+    if (resultElement) resultElement.innerHTML = '';
+    
+    const warningElement = document.getElementById('warning');
+    if (warningElement) warningElement.innerHTML = '';
+    
+    // 타겟 디스플레이 초기화
+    const target1Wrapper = document.getElementById('target-1-wrapper');
+    if (target1Wrapper) target1Wrapper.innerHTML = '';
+    
     const targetsContainer = document.getElementById('targets-2-to-4');
-    target1Container.innerHTML = '';
-    targetsContainer.innerHTML = '';
+    if (targetsContainer) targetsContainer.innerHTML = '';
+    
+    // 타겟 정보 초기화
     updateTargetInfo('-', '-');
+    
+    // 상호작용 정보 초기화
+    updateInteractionInfo('');
+    
+    // 기기 감지 실행
     detectDevice();
 }
 
 window.onload = () => {
     resetCalculator();
-    detectDevice();
-    updateDeviceInfo();
-    updateInteractionInfo();
-
-    // 기기 모델 선택 시 이벤트 리스너 추가
-    document.getElementById('deviceModel').addEventListener('change', updateDeviceInfo);
+    const deviceModelSelect = document.getElementById('deviceModel');
+    if (deviceModelSelect) {
+        deviceModelSelect.addEventListener('change', updateDeviceInfo);
+    }
+    const resetButton = document.getElementById('resetBtn');
+    if (resetButton) {
+        resetButton.addEventListener('click', resetCalculator);
+    }
 };
-
 // 물리적 크기 계산
 function calculatePhysicalSize(cssPixels, ppi, dpr) {
     const physicalPixels = cssPixels * dpr;
