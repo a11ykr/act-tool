@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "대체텍스트 검사기",
+  "version": "0.1",
+  "description": "웹페이지에서 이미지의 대체 텍스트를 오버레이로 표시합니다",
+  "permissions": [
+    "activeTab"
+  ],
+  "icons": {
+    "16": "alt.png",
+    "48": "alt.png",
+    "128": "alt.png"
+  },
+  "action": {
+    "default_title": "Text Alternative Checker",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "alt.png",
+      "48": "alt.png",
+      "128": "alt.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content.css"],
+      "js": ["content.js"]
+    }
+  ]
+}
