@@ -20,12 +20,9 @@
 <body>
 <body>
     <h1>타겟 크기 계산(Beta)</h1>
-    <h2>9mm에 대한 길이 환산</h2>
+    <h2>9mm에 대한 기기별 길이 환산</h2>
     <table id="sizeByDevice"></table>
     <p class="note">참고: 모든 값은 소수점 둘째 자리까지 반올림 처리</p>
-
-    <h2>UI 시뮬레이션</h2>
-    <div id="simulation"></div>
 
     <footer>
         <p>계산식 테스트 중입니다. 개선 중 일부 오류가 발생할 수 있습니다. 참여 의사나, 의견은 <a href="https://github.com/a11ykr/act-tool/issues/new">github에 남겨주세요</a>.
@@ -35,11 +32,6 @@
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
             <h3 id="modalDeviceName"></h3>
-            <div>
-                <strong>CSS px:</strong> <span id="modalCssPx"></span><br>
-                <strong>Android dp:</strong> <span id="modalDp"></span><br>
-                <strong>iOS pt:</strong> <span id="modalPt"></span>
-            </div>
             <div id="modalBox" style="margin:16px 0;"></div>
         </div>
     </div>

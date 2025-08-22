@@ -94,7 +94,7 @@ const FIXED_SIDE_MM = 9;
 
 function generateTable() {
     const table = document.getElementById('sizeByDevice');
-    table.innerHTML = '<caption>한 변 9mm 정사각형 → 기기별 환산 표</caption>';
+    table.innerHTML = '<caption>행 클릭시 대각선 길이 약 12.73mm인 정사각형 시뮬레이션</caption>';
 
     // thead 생성
     const thead = document.createElement('thead');
@@ -102,7 +102,6 @@ function generateTable() {
 
     const headers = [
         '기기',
-        '대각선 (mm)',
         '한 변 물리 px',
         '한 변 CSS px',
         'Android dp',
@@ -125,7 +124,6 @@ function generateTable() {
             const row = document.createElement('tr');
 
             const sideMm = FIXED_SIDE_MM;
-            const diagMm = sideMm * Math.SQRT2;
             const sidePx = (sideMm / 25.4) * device.ppi;
             const cssPx = sidePx / device.dpr;
             const dp = sidePx * 160 / device.ppi;
@@ -137,15 +135,13 @@ function generateTable() {
             nameCell.textContent = device.name;
             row.appendChild(nameCell);
 
-            [diagMm, sidePx, cssPx, dp, pt].forEach(val => {
+            [sidePx, cssPx, dp, pt].forEach(val => {
                 const td = document.createElement('td');
                 td.textContent = val.toFixed(2);
                 row.appendChild(td);
             });
 
             // 모달 이벤트
-            row.addEventListener('mouseenter', () => showValueModal(device, cssPx, dp, pt));
-            row.addEventListener('mouseleave', hideValueModal);
             row.addEventListener('click', () => showValueModal(device, cssPx, dp, pt));
 
             tbody.appendChild(row);
@@ -166,15 +162,29 @@ function showSimulation(deviceName, cssPx) {
 
 function showValueModal(device, cssPx, dp, pt) {
     document.getElementById('modalDeviceName').textContent = device.name;
-    document.getElementById('modalCssPx').textContent = cssPx.toFixed(2);
-    document.getElementById('modalDp').textContent = dp.toFixed(2);
-    document.getElementById('modalPt').textContent = pt.toFixed(2);
 
     // 실제 크기의 사각형 추가
     const modalBox = document.getElementById('modalBox');
-    modalBox.innerHTML = `<div class="target-box" style="width:${cssPx}px;height:${cssPx}px;"></div>
-        <div style="font-size:12px;color:#666;">한 변: ${cssPx.toFixed(2)} CSS px</div>`;
-
+    modalBox.innerHTML = `
+        <div style="display:flex;align-items:center;gap:24px;">
+            <div style="flex:1;">
+                <div style="margin-bottom:8px;">
+                    <strong>DPR:</strong> ${device.dpr}<br>
+                    <strong>PPI:</strong> ${device.ppi}<br>
+                    <strong>ScaleFactor:</strong> ${device.scaleFactor}
+                </div>
+                <div style="margin-top:8px;">
+                    <strong>CSS px:</strong> ${cssPx.toFixed(2)}<br>
+                    <strong>Android dp:</strong> ${dp.toFixed(2)}<br>
+                    <strong>iOS pt:</strong> ${pt.toFixed(2)}
+                </div>
+            </div>
+            <div style="text-align:center;">
+                <div class="target-box" style="width:${cssPx}px;height:${cssPx}px;margin:0 auto;"></div>
+                <div style="font-size:12px;color:#666;margin-top:8px;">한 변: ${cssPx.toFixed(2)} CSS px</div>
+            </div>
+        </div>
+    `;
 
     const modal = document.getElementById('valueModal');
     modal.classList.add('show');
