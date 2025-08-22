@@ -443,7 +443,9 @@ function calculatePhysicalSize(cssPixels, ppi, dpr) {
     return inchSize * 25.4; // inch를 mm로 변환
 }
 
-// 표 생성
+// 한 변(mm) 고정
+const FIXED_SIDE_MM = 9;
+
 function generateTable() {
     const table = document.getElementById('sizeByDevice');
     if (!table) {
@@ -451,24 +453,24 @@ function generateTable() {
         return;
     }
 
-    table.innerHTML = '<caption>CSS 픽셀 크기별 물리적 크기 환산(대각선 길이, mm)</caption>';
-
-    const cssPixelSizes = [16, 24, 32, 44, 48]; // CSS 픽셀 크기
+    table.innerHTML = '<caption>한 변 9mm 정사각형 → 기기별 환산 표</caption>';
 
     // thead 생성
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
 
-    // '기기' 열 헤더
-    const deviceHeader = document.createElement('th');
-    deviceHeader.textContent = '기기';
-    headerRow.appendChild(deviceHeader);
-
-    // CSS 픽셀 크기 열 헤더
-    cssPixelSizes.forEach(size => {
-        const sizeHeader = document.createElement('th');
-        sizeHeader.textContent = `${size}px`;
-        headerRow.appendChild(sizeHeader);
+    const headers = [
+        '기기',
+        '대각선 (mm)',
+        '한 변 물리 px',
+        '한 변 CSS px',
+        'Android dp',
+        'iOS pt'
+    ];
+    headers.forEach(h => {
+        const th = document.createElement('th');
+        th.textContent = h;
+        headerRow.appendChild(th);
     });
 
     thead.appendChild(headerRow);
@@ -481,21 +483,31 @@ function generateTable() {
         category.models.forEach(device => {
             const row = document.createElement('tr');
 
-            // 기기 이름 셀
+            // 계산
+            const sideMm = FIXED_SIDE_MM;
+            const diagMm = sideMm * Math.SQRT2;
+            const sidePx = (sideMm / 25.4) * device.ppi;
+            const cssPx = sidePx / device.dpr;
+            const dp = sidePx * 160 / device.ppi;
+            const pt = cssPx; // iOS pt ≈ CSS px
+
+            // 기기 이름
             const nameCell = document.createElement('th');
             nameCell.classList.add("device-name");
             nameCell.textContent = device.name;
             row.appendChild(nameCell);
 
-            // CSS 픽셀 크기별 물리적 크기 계산 및 셀 추가
-            cssPixelSizes.forEach(pixelSize => {
-                const sizeCell = document.createElement('td');
-                const physicalSize = calculatePhysicalSize(pixelSize, device.ppi, device.dpr);
-                sizeCell.textContent = physicalSize.toFixed(2);
-                row.appendChild(sizeCell);
-                if (physicalSize < 6) {
-                    sizeCell.classList.add("small")
-                }
+            // 각 값 채우기
+            [
+                diagMm.toFixed(2),
+                sidePx.toFixed(2),
+                cssPx.toFixed(2),
+                dp.toFixed(2),
+                pt.toFixed(2)
+            ].forEach(val => {
+                const td = document.createElement('td');
+                td.textContent = val;
+                row.appendChild(td);
             });
 
             tbody.appendChild(row);
