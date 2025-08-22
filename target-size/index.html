@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>타겟 크기 계산기 - 접근성 검사 도구</title>
+    <title>타겟 크기 계산 - 접근성 검사 도구</title>
     <meta name="description" content="터치 타겟이나 UI 요소의 물리적 크기를 다양한 기기에서의 픽셀 크기로 변환하는 계산기입니다.">
     <meta name="keywords" content="타겟 크기 계산기, UI 요소, 픽셀 변환, 터치 타겟, WCAG 2.2, 접근성, 모바일 디자인">
     <link rel="canonical" href="https://a11ykr.github.io/act-tool/target-size/">
@@ -18,138 +18,32 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>타겟 크기 계산기(Beta)</h1>
-    <p>이 계산기는 터치용 타겟이나 UI 요소의 물리적 크기를 다양한 기기에서의 픽셀 크기로 변환합니다.</p>
-    <div id="deviceInfo"></div>
-    <div class="input-group">
-        <label for="diagonalLength">타겟 대각선 길이(mm):</label>
-        <input type="number" id="diagonalLength" min="0.1" step="0.1" value="6">
-    </div>
-    <div class="input-group">
-        <label for="deviceModel">기기 모델 선택:</label>
-        <select id="deviceModel" onchange="updateDeviceInfo()">
-            <option value="">기기 감지/자동 입력</option>
-            <optgroup label="iPhone">
-                <option value="460,3,iPhone 15 시리즈">iPhone 15 시리즈</option>
-                <option value="460,3,iPhone 14 Pro/Pro Max">iPhone 14 Pro/Pro Max</option>
-                <option value="460,3,iPhone 13 Pro/Pro Max">iPhone 13 Pro/Pro Max</option>
-                <option value="326,2,iPhone SE (2nd/3rd gen)">iPhone SE (2nd/3rd gen)</option>
-                <option value="401,3,iPhone 12 mini">iPhone 12 mini</option>
-                <option value="326,3,iPhone 11">iPhone 11</option>
-                <option value="326,2,iPhone 8/7/6s/6">iPhone 8/7/6s/6</option>
-            </optgroup>
-            <optgroup label="iPad">
-                <option value="264,2,iPad Pro 12.9-inch (5th gen)">iPad Pro 12.9-inch (5th gen)</option>
-                <option value="264,2,iPad Pro 11-inch (3rd gen)">iPad Pro 11-inch (3rd gen)</option>
-                <option value="264,2,iPad Air (5th gen)">iPad Air (5th gen)</option>
-                <option value="326,2,iPad mini (6th gen)">iPad mini (6th gen)</option>
-                <option value="264,2,iPad (9th gen)">iPad (9th gen)</option>
-            </optgroup>
-            <optgroup label="Samsung Galaxy">
-                <option value="500,4,Samsung Galaxy S22 Ultra">Samsung Galaxy S22 Ultra</option>
-                <option value="422,3,Samsung Galaxy S22">Samsung Galaxy S22</option>
-                <option value="393,3,Samsung Galaxy S22+">Samsung Galaxy S22+</option>
-                <option value="515,3.75,Samsung Galaxy S21 Ultra">Samsung Galaxy S21 Ultra</option>
-                <option value="421,3,Samsung Galaxy S21">Samsung Galaxy S21</option>
-                <option value="525,3.5,Samsung Galaxy S20 Ultra">Samsung Galaxy S20 Ultra</option>
-                <option value="563,4,Samsung Galaxy S20">Samsung Galaxy S20</option>
-                <option value="522,3.5,Samsung Galaxy S10+">Samsung Galaxy S10+</option>
-                <option value="550,4,Samsung Galaxy S10">Samsung Galaxy S10</option>
-                <option value="529,4,Samsung Galaxy S9+">Samsung Galaxy S9+</option>
-                <option value="570,4,Samsung Galaxy S9">Samsung Galaxy S9</option>
-                <option value="373,2,Samsung Galaxy Z Fold2">Samsung Galaxy Z Fold2</option>
-                <option value="425,2.625,Samsung Galaxy Z Flip">Samsung Galaxy Z Flip</option>
-                <option value="496,3.5,Samsung Galaxy Note 20 Ultra">Samsung Galaxy Note 20 Ultra</option>
-                <option value="393,2.625,Samsung Galaxy Note 20">Samsung Galaxy Note 20</option>
-            </optgroup>
-            <optgroup label="Samsung Galaxy Tab">
-                <option value="266,2,Samsung Galaxy Tab S8 Ultra">Samsung Galaxy Tab S8 Ultra</option>
-                <option value="274,2,Samsung Galaxy Tab S7+">Samsung Galaxy Tab S7+</option>
-                <option value="276,2,Samsung Galaxy Tab S6">Samsung Galaxy Tab S6</option>
-                <option value="287,1.5,Samsung Galaxy Tab A7">Samsung Galaxy Tab A7</option>
-            </optgroup>
-            <optgroup label="Google Pixel">
-                <option value="441,3,Google Pixel 6 Pro">Google Pixel 6 Pro</option>
-                <option value="411,2.625,Google Pixel 6">Google Pixel 6</option>
-                <option value="432,3,Google Pixel 5">Google Pixel 5</option>
-                <option value="444,2.75,Google Pixel 4 XL">Google Pixel 4 XL</option>
-                <option value="444,2.75,Google Pixel 4">Google Pixel 4</option>
-            </optgroup>
-            <optgroup label="Other Android">
-                <option value="403,2.75,OnePlus 9 Pro">OnePlus 9 Pro</option>
-                <option value="393,2.75,Xiaomi Mi 11">Xiaomi Mi 11</option>
-                <option value="443,3.5,Sony Xperia 1 III">Sony Xperia 1 III</option>
-                <option value="387,2.75,Huawei P40 Pro">Huawei P40 Pro</option>
-                <option value="370,3,Motorola Edge+">Motorola Edge+</option>
-            </optgroup>
-        </select>
-    </div>
-    <div class="input-group">
-        <label for="ppi">화면 픽셀 밀도 (<abbr title="Pixel Per Inch">PPI</abbr>): (맥북 등은 확인 필요)</label>
-        <input type="number" id="ppi" min="1" step="1" value="460">
-    </div>
-    <!-- <div class="input-group">
-        <label for="scaleFactor">디스플레이 배율(Scale Factor):</label>
-        <input type="number" id="scaleFactor" min="1" step="0.01" value="3">
-    </div> -->
-    <div class="input-group">
-        <label for="dpr">기기 픽셀 비율(Device Pixel Ratio):</label>
-        <input type="number" id="dpr" min="1" step="0.1" value="1">
-    </div>
-    <button id="calculateBtn" onclick="calculate()">계산</button>
-    <button id="resetBtn" onclick="resetCalculator()">초기화</button>
-    <div id="output-container">
-        <div id="target-info">
-            <div id="target-size" class="info-box">
-                <span class="info-label">타겟 크기(한 변의 길이):</span>
-                <span id="target-size-value" class="info-value"></span>
-            </div>
-        </div>
-        <div id="target-display">
-            <div id="original-target-container">
-                <h3>단일 타겟</h3>
-                <div id="target-1-wrapper">
-                    <div id="target-1"></div>
-                </div>
-            </div>
-            <div id="sequence-target-container">
-                <h3>연속 타겟</h3>
-                <div id="targets-2-to-4"></div>
-            </div>
-            <div id="interaction-info">
-                <h3>상호작용 정보</h3>
-                <div id="interaction-content"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="result"></div>
-    <p id="warning"></p>
-    <h2>계산식 설명</h2>
-    <div class="formula-explanation">
-        <p>UI 요소의 CSS 픽셀 크기와 물리적 크기는 다음과 같이 계산됩니다:</p>
-        <ol>
-            <li>대각선 길이(물리적 픽셀) = (대각선 길이 mm / 25.4) * PPI</li>
-            <li>한 변의 길이(물리적 픽셀) = 대각선 길이(물리적 픽셀) / √2</li>
-            <li>한 변의 길이(CSS 픽셀) = 한 변의 길이(물리적 픽셀) / DPR</li>
-            <li>실제 물리적 크기(mm) = (CSS픽셀 * DPR * 25.4) / PPI</li>
-        </ol>
-        <p>여기서:</p>
-        <ul>
-            <li>25.4는 1인치를 밀리미터로 변환하는 상수</li>
-            <li>√2는 정사각형의 대각선 길이와 변의 길이 비율</li>
-            <li>PPI(Pixels Per Inch)는 화면의 픽셀 밀도</li>
-            <li>DPR(Device Pixel Ratio)은 물리적 픽셀과 CSS 픽셀의 비율</li>
-        </ul>
-    </div>
-
-    <h2>참고: 9mm에 대한 길이 환산</h2>
+<body>
+    <h1>타겟 크기 계산(Beta)</h1>
+    <h2>9mm에 대한 길이 환산</h2>
     <table id="sizeByDevice"></table>
     <p class="note">참고: 모든 값은 소수점 둘째 자리까지 반올림 처리</p>
 
+    <h2>UI 시뮬레이션</h2>
+    <div id="simulation"></div>
+
     <footer>
-        <p>계산식 테스트 중입니다. 개선 중 일부 오류가 발생할 수 있습니다. 참여 의사나, 의견은 <a href="https://github.com/a11ykr/act-tool/issues/new">github에 남겨주세요</a>.</p>
+        <p>계산식 테스트 중입니다. 개선 중 일부 오류가 발생할 수 있습니다. 참여 의사나, 의견은 <a href="https://github.com/a11ykr/act-tool/issues/new">github에 남겨주세요</a>.
+        </p>
     </footer>
+    <div id="valueModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3 id="modalDeviceName"></h3>
+            <div>
+                <strong>CSS px:</strong> <span id="modalCssPx"></span><br>
+                <strong>Android dp:</strong> <span id="modalDp"></span><br>
+                <strong>iOS pt:</strong> <span id="modalPt"></span>
+            </div>
+            <div id="modalBox" style="margin:16px 0;"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
+</body>
 </body>
 </html>

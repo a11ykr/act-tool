@@ -5,165 +5,6 @@ body {
     max-width: 800px;
     margin: 0 auto;
 }
-.input-group {
-    margin-bottom: 20px;
-}
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-input[type="number"], select {
-    width: calc(100% - 20px);
-    padding: 5px;
-    font-size: 16px;
-}
-button {
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-button#calculateBtn {
-    background-color: #e74c3c;
-}
-button#calculateBtn:hover {
-    background-color: #c0392b;
-}
-button#resetBtn {
-    background-color: #3498db;
-}
-button#resetBtn:hover {
-    background-color: #2980b9;
-}
-#result, #warning, #deviceInfo {
-    margin-top: 20px;
-    font-weight: bold;
-}
-#warning {
-    color: #e74c3c;
-}
-#deviceInfo {
-    color: #27ae60;
-}
-#output-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 20px;
-    width: 100%;
-}
-#target-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    width: 100%;
-}
-.info-box {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 5px;
-    flex-grow: 1;
-    text-align: center;
-}
-.info-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-}
-.info-value {
-    font-size: 1.2em;
-    color: #e74c3c;
-}
-#target-display {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin-top: 20px;
-    width: 100%;
-    flex-wrap: wrap;
-}
-
-#original-target-container, #sequence-target-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-}
-
-#target-1-wrapper, #targets-2-to-4 {
-    position: relative;
-    min-height: 50px;
-}
-
-#target-1-wrapper {
-    min-width: 50px;
-}
-
-#targets-2-to-4 {
-    font-size: 0; /* 요소 간 공백 제거 */
-    min-width: 200px; /* 최소 너비를 200px로 설정 */
-    overflow: visible; /* 내용이 넘치더라도 보이도록 설정 */
-}
-
-.target-button {
-    background-color: rgba(52, 152, 219, 0.3);
-    border: 2px solid #3498db;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    color: #2c3e50;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    font-size: 16px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-
-#original-target-container, #sequence-target-container, #interaction-info {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-right: 20px;
-}
-
-#original-target-container h3, #sequence-target-container h3, #interaction-info h3 {
-    margin-top: 0;
-    color: #333;
-}
-
-#interaction-info {
-    flex-grow: 1;
-    min-width: 200px;
-}
-
-#interaction-content {
-    min-height: 1.5em;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
-
-.target-button:hover {
-    background-color: rgba(41, 128, 185, 0.3);
-}
-.target-button:active {
-    background-color: rgba(31, 97, 141, 0.3);
-}
 .modal {
     display: none;
     position: fixed;
@@ -188,10 +29,22 @@ button#resetBtn:hover {
     transform: translateY(-20px);
     transition: transform 0.3s ease;
 }
-
+.modal.show {
+    display: block;
+    opacity: 1;
+}
 .modal.show .modal-content {
     transform: translateY(0);
 }
+#modalBox .target-box {
+    background: #4caf50;
+    display: inline-block;
+    margin: 0 auto;
+    border-radius: 4px;
+    border: 1px solid #3332;
+    box-shadow: 0 1px 4px #0001;
+}
+
 .close {
     color: #aaa;
     float: right;

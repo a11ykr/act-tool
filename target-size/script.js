@@ -89,370 +89,11 @@ let devicesData = {
     ]
 };
 
-function detectDevice() {
-    const userAgent = navigator.userAgent;
-    const dpr = window.devicePixelRatio || 1;
-    let detectedModel = "알 수 없는 기기";
-    let ppi = 96; // PC 기본값
-
-    // 기기 감지
-    if (/iPhone/.test(userAgent)) {
-        if (/iPhone1[345]/.test(userAgent)) {
-            detectedModel = "iPhone 15 시리즈";
-            ppi = 460;
-            scaleFactor = 3;
-        } else if (/iPhone14,([34])/.test(userAgent)) {
-            detectedModel = "iPhone 14 Pro/Pro Max";
-            ppi = 460;
-            scaleFactor = 3;
-        } else if (/iPhone12,([5-8])/.test(userAgent)) {
-            detectedModel = "iPhone 13 Pro/Pro Max";
-            ppi = 460;
-            scaleFactor = 3;
-        } else {
-            detectedModel = "iPhone (other)";
-            ppi = 326;
-            scaleFactor = 2;
-        }
-    } else if (/iPad/.test(userAgent)) {
-        if (/iPad13,([1-2])/.test(userAgent)) {
-            detectedModel = "iPad Pro 12.9-inch (5th gen)";
-            ppi = 264;
-            scaleFactor = 2;
-        } else if (/iPad13,([4-6])/.test(userAgent)) {
-            detectedModel = "iPad Pro 11-inch (3rd gen)";
-            ppi = 264;
-            scaleFactor = 2;
-        } else if (/iPad13,16/.test(userAgent)) {
-            detectedModel = "iPad Air (5th gen)";
-            ppi = 264;
-            scaleFactor = 2;
-        } else if (/iPad14,1/.test(userAgent)) {
-            detectedModel = "iPad mini (6th gen)";
-            ppi = 326;
-            scaleFactor = 2;
-        } else {
-            detectedModel = "iPad (other)";
-            ppi = 264;
-            scaleFactor = 2;
-        }
-    } else if (/Android/.test(userAgent)) {
-        // Samsung
-        if (/SM-S908[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S22 Ultra";
-            ppi = 500;
-        } else if (/SM-S901[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S22";
-            ppi = 422;
-        } else if (/SM-S906[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S22+";
-            ppi = 393;
-        } else if (/SM-G998[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S21 Ultra";
-            ppi = 515;
-        } else if (/SM-G991[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy S21";
-            ppi = 421;
-        } else if (/SM-F926[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Z Fold3";
-            ppi = 374;
-        } else if (/SM-F711[BNE]/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Z Flip3";
-            ppi = 425;
-        } else if (/SM-X900/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Tab S8 Ultra";
-            ppi = 240;
-        } else if (/SM-T970/.test(userAgent)) {
-            detectedModel = "Samsung Galaxy Tab S7+";
-            ppi = 266;
-        }
-        // Google Pixel
-        else if (/Pixel 6 Pro/.test(userAgent)) {
-            detectedModel = "Google Pixel 6 Pro";
-            ppi = 512;
-        } else if (/Pixel 6/.test(userAgent)) {
-            detectedModel = "Google Pixel 6";
-            ppi = 411;
-        } else if (/Pixel 5/.test(userAgent)) {
-            detectedModel = "Google Pixel 5";
-            ppi = 432;
-        } else if (/Pixel 4 XL/.test(userAgent)) {
-            detectedModel = "Google Pixel 4 XL";
-            ppi = 537;
-        } else if (/Pixel 4/.test(userAgent)) {
-            detectedModel = "Google Pixel 4";
-            ppi = 444;
-        }
-        // OnePlus
-        else if (/OnePlus 9 Pro/.test(userAgent)) {
-            detectedModel = "OnePlus 9 Pro";
-            ppi = 525;
-        }
-        // Xiaomi
-        else if (/Mi 11/.test(userAgent)) {
-            detectedModel = "Xiaomi Mi 11";
-            ppi = 515;
-        }
-        // Sony
-        else if (/XQ-BC72/.test(userAgent)) {
-            detectedModel = "Sony Xperia 1 III";
-            ppi = 643;
-        }
-        // Huawei
-        else if (/ELS-NX9/.test(userAgent)) {
-            detectedModel = "Huawei P40 Pro";
-            ppi = 441;
-        }
-        // Motorola
-        else if (/motorola edge\+/.test(userAgent)) {
-            detectedModel = "Motorola Edge+";
-            ppi = 385;
-        }
-        // LG (참고: LG는 스마트폰 사업을 중단했지만, 기존 기기를 위해 포함)
-        else if (/LM-G900/.test(userAgent)) {
-            detectedModel = "LG Velvet";
-            ppi = 395;
-        } else if (/LM-V600/.test(userAgent)) {
-            detectedModel = "LG V60 ThinQ";
-            ppi = 395;
-        } else {
-            detectedModel = "Android 기기";
-            ppi = 160 * devicePixelRatio;
-        }
-        scaleFactor = devicePixelRatio;
-    }
-
-    // 감지된 정보를 화면에 표시
-    const deviceInfoElement = document.getElementById('deviceInfo');
-    if (deviceInfoElement) {
-        deviceInfoElement.textContent = `감지된 기기: ${detectedModel}, 예상 화면 픽셀 밀도: ${ppi} PPI, Device Pixel Ratio: ${dpr.toFixed(2)}`;
-    } else {
-        console.error('deviceInfo element not found');
-    }
-
-    // PPI 입력 필드 업데이트
-    const ppiInput = document.getElementById('ppi');
-    if (ppiInput) {
-        ppiInput.value = ppi;
-    } else {
-        console.error('ppi input element not found');
-    }
-
-    // DPR 입력 필드 업데이트
-    const dprInput = document.getElementById('dpr');
-    if (dprInput) {
-        dprInput.value = dpr.toFixed(2);
-    } else {
-        console.error('dpr input element not found');
-    }
-
-    // 기기 모델 선택 업데이트
-    const modelSelect = document.getElementById('deviceModel');
-    if (modelSelect) {
-        let matchFound = false;
-        for (let i = 0; i < modelSelect.options.length; i++) {
-            if (modelSelect.options[i].text.includes(detectedModel)) {
-                modelSelect.selectedIndex = i;
-                matchFound = true;
-                break;
-            }
-        }
-        if (!matchFound) {
-            modelSelect.value = ''; // 매치되는 모델이 없으면 선택 초기화
-        }
-    } else {
-        console.error('deviceModel select element not found');
-    }
-
-    updateDeviceInfo(); // 기기 정보 업데이트 후 다시 한 번 호출
-}
-
-function updateDeviceInfo() {
-    const deviceModel = document.getElementById('deviceModel');
-    const selectedOption = deviceModel.options[deviceModel.selectedIndex];
-    
-    if (selectedOption && selectedOption.value) {
-        const [ppi, dpr, modelName] = selectedOption.value.split(',');
-        if (ppi && dpr) {
-            document.getElementById('ppi').value = ppi;
-            document.getElementById('dpr').value = dpr;
-        }
-    } else {
-        // 기기가 선택되지 않았을 때는 detectDevice 함수의 결과를 사용
-        const detectedPpi = document.getElementById('ppi').value;
-        const detectedDpr = window.devicePixelRatio || 1;
-        document.getElementById('ppi').value = detectedPpi || '96';
-        document.getElementById('dpr').value = detectedDpr.toFixed(2);
-    }
-}
-
-function calculate() {
-    const diagonalMm = parseFloat(document.getElementById('diagonalLength').value);
-    const ppi = parseFloat(document.getElementById('ppi').value);
-    const dpr = parseFloat(document.getElementById('dpr').value);
-    const modelName = document.getElementById('deviceModel').options[document.getElementById('deviceModel').selectedIndex].text;
-
-    if (isNaN(diagonalMm) || diagonalMm <= 0 || isNaN(ppi) || ppi <= 0 || isNaN(dpr) || dpr <= 0) {
-        alert('올바른 값을 입력해주세요.');
-        return;
-    }
-
-    const diagonalInches = diagonalMm / 25.4;
-    const diagonalPhysicalPixels = diagonalInches * ppi;
-    const sidePhysicalPixels = diagonalPhysicalPixels / Math.sqrt(2);
-    const sideCSSPixels = sidePhysicalPixels / dpr;
-    const roundedCSSPixels = Math.round(sideCSSPixels);
-
-    // 물리적 크기 계산 (mm)
-    const physicalSizeMm = (roundedCSSPixels * dpr * 25.4) / ppi;
-
-    updateTargetInfo(roundedCSSPixels);
-
-    const target1Wrapper = document.getElementById('target-1-wrapper');
-    const targetsContainer = document.getElementById('targets-2-to-4');
-    target1Wrapper.innerHTML = '';
-    targetsContainer.innerHTML = '';
-
-    // 단일 타겟 (1번) 생성
-    const originalTarget = createTargetButton(roundedCSSPixels, 1);
-    target1Wrapper.appendChild(originalTarget);
-    target1Wrapper.style.width = `${roundedCSSPixels}px`;
-    target1Wrapper.style.height = `${roundedCSSPixels}px`;
-
-    // 연속 타겟 생성 및 배치
-    for (let i = 0; i < 3; i++) {
-        const sequenceTarget = createTargetButton(roundedCSSPixels, i + 2);
-        sequenceTarget.style.left = `${i * roundedCSSPixels}px`;
-        targetsContainer.appendChild(sequenceTarget);
-    }
-
-    // 타겟 컨테이너의 크기 설정 (최소 200px, 필요시 더 크게)
-    const calculatedWidth = 3 * roundedCSSPixels;
-    const containerWidth = Math.max(200, calculatedWidth);
-    targetsContainer.style.width = `${containerWidth}px`;
-    targetsContainer.style.height = `${roundedCSSPixels}px`;
-
-    const resultText = `
-        <li><strong>선택된 모델:</strong> ${modelName}</li>
-        <li><strong>타겟 대각선 길이:</strong> ${diagonalMm.toFixed(2)}mm (${diagonalInches.toFixed(4)} inches)</li>
-        <li><strong>화면 픽셀 밀도(PPI):</strong> ${ppi} / <strong>기기 픽셀 비율(DPR):</strong> ${dpr}</li>
-        <li><strong>타겟 한 변의 길이 (CSS 픽셀 / 반올림):</strong> ${sideCSSPixels.toFixed(2)}px / ${roundedCSSPixels}px</li>
-        <li><strong>물리적 타겟 길이(대각선/한 변):</strong> ${diagonalPhysicalPixels.toFixed(2)}px / ${sidePhysicalPixels.toFixed(2)}px</li>
-        <li><strong>실제 물리적 크기(대각선/한 변):</strong> ${(physicalSizeMm * Math.sqrt(2)).toFixed(2)}mm / ${physicalSizeMm.toFixed(2)}mm</li>
-    `;
-
-    document.getElementById('result').innerHTML = resultText;
-    document.getElementById('warning').innerHTML = `
-        주의: 실제 물리적 크기는 화면 설정과 기기에 따라 다를 수 있습니다.<br>
-        이 시각화는 참고용이며, 정확한 물리적 크기를 보장하지 않습니다.<br>
-        CSS 픽셀 값은 정수로 반올림됩니다.
-    `;
-
-    setupButtonInteractions();
-}
-
-
-function createTargetButton(size, number) {
-    const targetButton = document.createElement('div');
-    targetButton.className = 'target-button';
-    targetButton.style.width = `${size}px`;
-    targetButton.style.height = `${size}px`;
-    targetButton.textContent = number;
-    return targetButton;
-}
-
-function updateTargetInfo(targetSize) {
-    document.getElementById('target-size-value').textContent = `${targetSize}px`;
-}
-
-function updateInteractionInfo(content) {
-    const interactionContent = document.getElementById('interaction-content');
-    if (interactionContent) interactionContent.textContent = content;
-}
-
-
-function setupButtonInteractions() {
-    const targetButtons = document.querySelectorAll('.target-button');
-    const interactionContent = document.getElementById('interaction-content');
-
-    targetButtons.forEach((button) => {
-        button.onmouseover = () => {
-            updateInteractionInfo(`타겟 ${button.textContent} 마우스 오버`);
-        };
-
-        button.onmouseout = () => {
-            updateInteractionInfo("");
-        };
-
-        button.onclick = () => {
-            updateInteractionInfo(`타겟 ${button.textContent} 클릭`);
-        };
-
-        button.ontouchstart = (e) => {
-            e.preventDefault();
-            updateInteractionInfo(`타겟 ${button.textContent} 터치`);
-        };
-    });
-}
-
-function resetCalculator() {
-    document.getElementById('diagonalLength').value = '6';
-    document.getElementById('deviceModel').value = '';
-    document.getElementById('ppi').value = '96';
-    document.getElementById('dpr').value = '1';
-    
-    // 결과 및 경고 메시지 초기화
-    const resultElement = document.getElementById('result');
-    if (resultElement) resultElement.innerHTML = '';
-    
-    const warningElement = document.getElementById('warning');
-    if (warningElement) warningElement.innerHTML = '';
-    
-    // 타겟 디스플레이 초기화
-    const target1Wrapper = document.getElementById('target-1-wrapper');
-    if (target1Wrapper) target1Wrapper.innerHTML = '';
-    
-    const targetsContainer = document.getElementById('targets-2-to-4');
-    if (targetsContainer) targetsContainer.innerHTML = '';
-    
-    // 타겟 정보 초기화
-    updateTargetInfo('-', '-');
-    
-    // 상호작용 정보 초기화
-    updateInteractionInfo('');
-    
-    // 기기 감지 실행
-    detectDevice();
-}
-
-window.onload = () => {
-    resetCalculator();
-    const deviceModelSelect = document.getElementById('deviceModel');
-    if (deviceModelSelect) {
-        deviceModelSelect.addEventListener('change', updateDeviceInfo);
-    }
-    const resetButton = document.getElementById('resetBtn');
-    if (resetButton) {
-        resetButton.addEventListener('click', resetCalculator);
-    }
-};
-// 물리적 크기 계산
-function calculatePhysicalSize(cssPixels, ppi, dpr) {
-    const physicalPixels = cssPixels * dpr;
-    const inchSize = (physicalPixels * Math.sqrt(2)) / ppi;
-    return inchSize * 25.4; // inch를 mm로 변환
-}
-
 // 한 변(mm) 고정
 const FIXED_SIDE_MM = 9;
 
 function generateTable() {
     const table = document.getElementById('sizeByDevice');
-    if (!table) {
-        console.error('Table not found');
-        return;
-    }
-
     table.innerHTML = '<caption>한 변 9mm 정사각형 → 기기별 환산 표</caption>';
 
     // thead 생성
@@ -483,32 +124,29 @@ function generateTable() {
         category.models.forEach(device => {
             const row = document.createElement('tr');
 
-            // 계산
             const sideMm = FIXED_SIDE_MM;
             const diagMm = sideMm * Math.SQRT2;
             const sidePx = (sideMm / 25.4) * device.ppi;
             const cssPx = sidePx / device.dpr;
             const dp = sidePx * 160 / device.ppi;
-            const pt = cssPx; // iOS pt ≈ CSS px
+            const pt = cssPx;
 
-            // 기기 이름
+            // 기기명
             const nameCell = document.createElement('th');
             nameCell.classList.add("device-name");
             nameCell.textContent = device.name;
             row.appendChild(nameCell);
 
-            // 각 값 채우기
-            [
-                diagMm.toFixed(2),
-                sidePx.toFixed(2),
-                cssPx.toFixed(2),
-                dp.toFixed(2),
-                pt.toFixed(2)
-            ].forEach(val => {
+            [diagMm, sidePx, cssPx, dp, pt].forEach(val => {
                 const td = document.createElement('td');
-                td.textContent = val;
+                td.textContent = val.toFixed(2);
                 row.appendChild(td);
             });
+
+            // 모달 이벤트
+            row.addEventListener('mouseenter', () => showValueModal(device, cssPx, dp, pt));
+            row.addEventListener('mouseleave', hideValueModal);
+            row.addEventListener('click', () => showValueModal(device, cssPx, dp, pt));
 
             tbody.appendChild(row);
         });
@@ -517,5 +155,42 @@ function generateTable() {
     table.appendChild(tbody);
 }
 
+function showSimulation(deviceName, cssPx) {
+    const container = document.getElementById('simulation');
+    container.innerHTML = `
+        <h3>${deviceName} 시뮬레이션</h3>
+        <div class="target-box" style="width:${cssPx}px;height:${cssPx}px;background:#4caf50;margin:10px;display:inline-block;"></div>
+        <p>한 변: ${cssPx.toFixed(2)} CSS px</p>
+    `;
+}
+
+function showValueModal(device, cssPx, dp, pt) {
+    document.getElementById('modalDeviceName').textContent = device.name;
+    document.getElementById('modalCssPx').textContent = cssPx.toFixed(2);
+    document.getElementById('modalDp').textContent = dp.toFixed(2);
+    document.getElementById('modalPt').textContent = pt.toFixed(2);
+
+    // 실제 크기의 사각형 추가
+    const modalBox = document.getElementById('modalBox');
+    modalBox.innerHTML = `<div class="target-box" style="width:${cssPx}px;height:${cssPx}px;"></div>
+        <div style="font-size:12px;color:#666;">한 변: ${cssPx.toFixed(2)} CSS px</div>`;
+
+
+    const modal = document.getElementById('valueModal');
+    modal.classList.add('show');
+}
+
+function hideValueModal() {
+    document.getElementById('valueModal').classList.remove('show');
+}
+
 // 페이지 로드 시 표 생성
-document.addEventListener('DOMContentLoaded', generateTable);
+document.addEventListener('DOMContentLoaded', () => {
+    generateTable();
+
+    // 모달 닫기 이벤트
+    document.getElementById('closeModal').onclick = hideValueModal;
+    document.getElementById('valueModal').onclick = function (e) {
+        if (e.target === this) hideValueModal();
+    };
+});
